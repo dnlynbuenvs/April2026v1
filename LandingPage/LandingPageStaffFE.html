@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - ASB Staff Foundational Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --blue: #1B5EA8;
+    --accent: #2A9D8F;
+    --accent-light: #E8F7F5;
+    --amber: #E76F1A;
+    --amber-light: #FEF3E8;
+    --sand: #F7F5F2;
+    --white: #FFFFFF;
+    --gray-100: #F2F1EF;
+    --gray-200: #E4E2DE;
+    --gray-400: #A8A49E;
+    --gray-600: #6B6760;
+    --gray-800: #2E2C2A;
+    --green: #2D7A4E;
+    --green-light: #E8F5EE;
+    --red: #C0392B;
+    --red-light: #FDECEA;
+    --purple: #6B4FAB;
+    --purple-light: #F0ECFA;
+    --shadow-sm: 0 1px 3px rgba(11,31,58,0.07), 0 1px 2px rgba(11,31,58,0.05);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--gray-800);
+    min-height: 100vh;
+  }
+
+  .topbar {
+    background: var(--navy);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-group { display: flex; align-items: center; gap: 10px; }
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-text .brand { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.04em; }
+  .logo-text .sub { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; text-transform: uppercase; }
+
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .nav-links { display: flex; gap: 4px; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+  .nav-links a.active { color: var(--white); font-weight: 500; background: rgba(255,255,255,0.12); }
+
+  .staff-role-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(42,157,143,0.2);
+    border: 1px solid rgba(42,157,143,0.35);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #5DCFC3;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .staff-role-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: #5DCFC3; }
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .page { max-width: 1240px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+
+  .hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .hero p { font-size: 14px; color: var(--gray-600); max-width: 620px; }
+
+  .summary-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .chip-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .chip-label { font-size: 12px; color: var(--gray-600); line-height: 1.3; }
+  .chip-divider { width: 1px; height: 28px; background: var(--gray-200); }
+
+  .filter-panel,
+  .table-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .filter-panel {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-header,
+  .table-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .filter-header { margin-bottom: 0.85rem; }
+  .filter-title,
+  .table-kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+  }
+
+  .reset-btn {
+    border: 1px solid var(--gray-200);
+    background: var(--sand);
+    color: var(--gray-600);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 12px;
+    cursor: pointer;
+  }
+
+  .filter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+  }
+
+  .search-wrap { position: relative; }
+  .search-wrap svg {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    pointer-events: none;
+  }
+
+  .search-input,
+  .filter-input,
+  .filter-select {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--gray-800);
+    outline: none;
+  }
+  .search-input { padding-left: 34px; }
+  .filter-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A8A49E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 34px;
+  }
+
+  .priority-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #FFF8F2;
+    border: 1px solid #F5C59A;
+    border-left: 3px solid var(--amber);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-bottom: 1.25rem;
+    font-size: 13px;
+    color: var(--gray-800);
+  }
+  .priority-alert strong { color: var(--amber); }
+
+  .table-head {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--gray-200);
+    background: linear-gradient(180deg, rgba(247,245,242,0.85) 0%, rgba(247,245,242,0.45) 100%);
+  }
+
+  .table-head h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--navy);
+  }
+  .table-head p { font-size: 13px; color: var(--gray-600); margin-top: 4px; }
+
+  .type-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 999px;
+    padding: 7px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--purple);
+    background: var(--purple-light);
+    border: 1px solid rgba(107,79,171,0.2);
+  }
+  .type-pill .count {
+    min-width: 18px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 1px 6px;
+    background: rgba(255,255,255,0.55);
+  }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gray-400);
+    background: var(--sand);
+    border-bottom: 1px solid var(--gray-200);
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--gray-100);
+    transition: background 0.1s;
+    cursor: pointer;
+  }
+  tbody tr:hover { background: #F5F8FF; }
+  tbody td {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--gray-800);
+    vertical-align: middle;
+  }
+
+  .learner-cell { display: flex; align-items: center; gap: 10px; }
+  .learner-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .av-blue { background: #EBF3FF; color: var(--blue); }
+  .av-teal { background: var(--accent-light); color: var(--accent); }
+  .av-amber { background: var(--amber-light); color: var(--amber); }
+  .av-purple { background: var(--purple-light); color: var(--purple); }
+
+  .learner-name { font-weight: 500; }
+  .subline {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 2px;
+    font-family: monospace;
+    letter-spacing: 0.04em;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .status-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .badge-pending-review { background: var(--amber-light); color: var(--amber); border: 1px solid #F5C59A; }
+  .badge-pending-review .dot { background: var(--amber); }
+  .badge-in-review { background: #EBF3FF; color: var(--blue); border: 1px solid rgba(27,94,168,0.15); }
+  .badge-in-review .dot { background: var(--blue); }
+  .badge-approved { background: var(--green-light); color: var(--green); }
+  .badge-approved .dot { background: var(--green); }
+  .badge-returned { background: var(--red-light); color: var(--red); border: 1px solid #F5ABAB; }
+  .badge-returned .dot { background: var(--red); }
+
+  .date-cell { font-size: 12px; color: var(--gray-600); white-space: nowrap; }
+
+  .review-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--blue);
+    border: 1px solid rgba(27,94,168,0.3);
+    background: #EBF3FF;
+    border-radius: var(--radius-sm);
+    padding: 5px 11px;
+    text-decoration: none;
+  }
+
+  .empty-state {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 14px;
+  }
+
+  @media (max-width: 1100px) {
+    .filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 760px) {
+    .topbar { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .page { padding: 1.25rem 1rem 3rem; }
+    .hero { flex-direction: column; align-items: flex-start; }
+    .filter-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo-group">
+    <div class="logo-mark">
+      <svg width="24" height="20" viewBox="0 0 24 20" fill="none">
+        <path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/>
+        <path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="brand">CPA Canada</span>
+      <span class="sub">Chartered Professional Accountants</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="staff-role-chip"><div class="dot"></div>ASB Staff</div>
+    <nav class="nav-links">
+      <a href="LandingPageStaffFE.html" class="active">Foundational</a>
+      <a href="LandingPageStaffWP.html">Work Plans</a>
+      <a href="LandingPageStaffRP.html">Reflection Papers</a>
+    </nav>
+    <div class="avatar">AS</div>
+  </div>
+</header>
+
+<main class="page">
+  <div class="hero">
+    <div>
+      <h1>Foundational Experience Submissions</h1>
+      <p>Review all in-flight foundational experience submissions and open any learner record to inspect details.</p>
+    </div>
+    <div class="summary-chip">
+      <div>
+        <div class="chip-val" id="total-count">0</div>
+        <div class="chip-label">Foundational submissions</div>
+      </div>
+      <div class="chip-divider"></div>
+      <div>
+        <div class="chip-val" style="color:var(--amber)" id="pending-count">0</div>
+        <div class="chip-label">Pending review</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="priority-alert">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span><strong id="priority-count">0 submissions</strong> are currently pending staff review in foundational experience.</span>
+  </div>
+
+  <section class="filter-panel">
+    <div class="filter-header">
+      <div class="filter-title">Filter Foundational Experience</div>
+      <button class="reset-btn" type="button" onclick="resetFilters()">Reset filters</button>
+    </div>
+    <div class="filter-grid">
+      <div class="field">
+        <label for="type-filter">Submission Type</label>
+        <select class="filter-select" id="type-filter" onchange="handleTypeChange()">
+          <option value="LandingPageStaffFE.html" selected>Foundational experience</option>
+          <option value="LandingPageStaffWP.html">Work plan</option>
+          <option value="LandingPageStaffRP.html">Reflection paper</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="name-filter">Name</label>
+        <div class="search-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="search-input" id="name-filter" type="text" placeholder="Search learner name" oninput="applyFilters()">
+        </div>
+      </div>
+      <div class="field">
+        <label for="status-filter">Status</label>
+        <select class="filter-select" id="status-filter" onchange="applyFilters()">
+          <option value="">All statuses</option>
+          <option value="pending-review">Pending review</option>
+          <option value="in-review">In review</option>
+          <option value="approved">Approved</option>
+          <option value="returned">Returned</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cpa-filter">CPA Canada ID</label>
+        <input class="filter-input" id="cpa-filter" type="text" placeholder="Filter by CPA ID" oninput="applyFilters()">
+      </div>
+      <div class="field">
+        <label for="imis-filter">iMIS ID</label>
+        <input class="filter-input" id="imis-filter" type="text" placeholder="Filter by iMIS ID" oninput="applyFilters()">
+      </div>
+      <div class="field">
+        <label for="date-filter">Submission Date</label>
+        <input class="filter-input" id="date-filter" type="date" onchange="applyFilters()">
+      </div>
+    </div>
+  </section>
+
+  <section class="table-card">
+    <div class="table-head">
+      <div>
+        <div class="table-kicker">ASB Staff Dashboard</div>
+        <h2>Foundational Experience Table</h2>
+        <p>Submitted date, current status, CPA Canada ID, and experience dates.</p>
+      </div>
+      <div class="type-pill">FE <span class="count" id="visible-count">0</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Learner</th>
+            <th>CPA Canada ID</th>
+            <th>Current Status</th>
+            <th>Submitted Date</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="submission-table"></tbody>
+      </table>
+      <div class="empty-state" id="submission-empty" style="display:none">No foundational experience submissions match the current filters.</div>
+    </div>
+  </section>
+</main>
+
+<script>
+const submissions = [
+  { id: 101, name: 'Dannie Nguyen', cpaId: 'CPA-2024-00412', imisId: 'IMIS-908721', status: 'pending-review', statusLabel: 'Pending review', submittedDate: '2026-04-15', startDate: '2026-01-01', endDate: '2026-03-31', avatar: 'DN', avatarClass: 'av-blue' },
+  { id: 102, name: 'Aisha Okonkwo', cpaId: 'CPA-2023-00291', imisId: 'IMIS-901163', status: 'in-review', statusLabel: 'In review', submittedDate: '2026-04-12', startDate: '2025-12-01', endDate: '2026-02-29', avatar: 'AO', avatarClass: 'av-purple' },
+  { id: 103, name: 'Sofia Reyes', cpaId: 'CPA-2024-00451', imisId: 'IMIS-909454', status: 'approved', statusLabel: 'Approved', submittedDate: '2026-04-08', startDate: '2025-11-01', endDate: '2026-01-31', avatar: 'SR', avatarClass: 'av-amber' },
+  { id: 104, name: 'Liam Tremblay', cpaId: 'CPA-2023-00355', imisId: 'IMIS-906780', status: 'returned', statusLabel: 'Returned', submittedDate: '2026-04-02', startDate: '2025-10-01', endDate: '2025-12-31', avatar: 'LT', avatarClass: 'av-teal' }
+];
+
+const statusBadgeClass = {
+  'pending-review': 'badge-pending-review',
+  'in-review': 'badge-in-review',
+  'approved': 'badge-approved',
+  'returned': 'badge-returned'
+};
+
+function formatDate(value) {
+  const [year, month, day] = value.split('-');
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return `${months[parseInt(month, 10) - 1]} ${parseInt(day, 10)}, ${year}`;
+}
+
+function matchesFilter(item) {
+  const name = document.getElementById('name-filter').value.trim().toLowerCase();
+  const status = document.getElementById('status-filter').value;
+  const cpaId = document.getElementById('cpa-filter').value.trim().toLowerCase();
+  const imisId = document.getElementById('imis-filter').value.trim().toLowerCase();
+  const submittedDate = document.getElementById('date-filter').value;
+
+  return (!name || item.name.toLowerCase().includes(name)) &&
+    (!status || item.status === status) &&
+    (!cpaId || item.cpaId.toLowerCase().includes(cpaId)) &&
+    (!imisId || item.imisId.toLowerCase().includes(imisId)) &&
+    (!submittedDate || item.submittedDate === submittedDate);
+}
+
+function renderTable(items) {
+  const table = document.getElementById('submission-table');
+  const emptyState = document.getElementById('submission-empty');
+
+  if (!items.length) {
+    table.innerHTML = '';
+    emptyState.style.display = 'block';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+  table.innerHTML = items.map(item => `
+    <tr onclick="handleReview(${item.id})">
+      <td>
+        <div class="learner-cell">
+          <div class="learner-avatar ${item.avatarClass}">${item.avatar}</div>
+          <div>
+            <div class="learner-name">${item.name}</div>
+            <div class="subline">${item.imisId}</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="subline" style="font-size:12px;color:var(--gray-600)">${item.cpaId}</span></td>
+      <td><span class="status-badge ${statusBadgeClass[item.status]}"><span class="dot"></span>${item.statusLabel}</span></td>
+      <td class="date-cell">${formatDate(item.submittedDate)}</td>
+      <td class="date-cell">${formatDate(item.startDate)}</td>
+      <td class="date-cell">${formatDate(item.endDate)}</td>
+      <td><a class="review-btn" onclick="event.stopPropagation(); handleReview(${item.id})">Review</a></td>
+    </tr>
+  `).join('');
+}
+
+function applyFilters() {
+  const filtered = submissions.filter(matchesFilter);
+  const pending = filtered.filter(item => item.status === 'pending-review').length;
+
+  renderTable(filtered);
+  document.getElementById('total-count').textContent = submissions.length;
+  document.getElementById('pending-count').textContent = pending;
+  document.getElementById('priority-count').textContent = `${pending} submission${pending === 1 ? '' : 's'}`;
+  document.getElementById('visible-count').textContent = filtered.length;
+}
+
+function resetFilters() {
+  document.getElementById('type-filter').value = 'LandingPageStaffFE.html';
+  document.getElementById('name-filter').value = '';
+  document.getElementById('status-filter').value = '';
+  document.getElementById('cpa-filter').value = '';
+  document.getElementById('imis-filter').value = '';
+  document.getElementById('date-filter').value = '';
+  applyFilters();
+}
+
+function handleReview(id) {
+  const item = submissions.find(entry => entry.id === id);
+  alert(`Opening foundational experience submission for ${item.name} (${item.cpaId})`);
+}
+
+function handleTypeChange() {
+  const targetPage = document.getElementById('type-filter').value;
+  window.location.href = targetPage;
+}
+
+applyFilters();
+</script>
+</body>
+</html>
