@@ -1,0 +1,30 @@
+Here are the hex codes for each:
+
+**Draft** (blue)
+- Background: `#EBF3FF`
+- Text/dot: `#3178C6`
+
+**Not submitted** (gray)
+- Background: `#F2F1EF`
+- Text: `#6B6760`
+- Dot: `#A8A49E`
+
+**Not claimed** (purple)
+- Background: `#F0ECFA`
+- Text/dot: `#6B4FAB`
+
+Here are all the hex codes across every status:
+
+**Pending review** (amber)
+- Background: `#FEF3E8`
+- Text/dot: `#E76F1A`
+- Border: `#F5C59A`
+
+**Rejected** (red)
+- Background: `#FDECEA`
+- Text/dot: `#C0392B`
+- Border: `#F5ABAB`
+
+**Completed** (green)
+- Background: `#E8F5EE`
+- Text/dot: `#2D7A4E`
