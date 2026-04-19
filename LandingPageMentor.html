@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA — Mentor Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --navy-mid: #163354;
+    --blue: #1B5EA8;
+    --blue-light: #3178C6;
+    --accent: #2A9D8F;
+    --accent-light: #E8F7F5;
+    --amber: #E76F1A;
+    --amber-light: #FEF3E8;
+    --sand: #F7F5F2;
+    --white: #FFFFFF;
+    --gray-100: #F2F1EF;
+    --gray-200: #E4E2DE;
+    --gray-400: #A8A49E;
+    --gray-600: #6B6760;
+    --gray-800: #2E2C2A;
+    --green: #2D7A4E;
+    --green-light: #E8F5EE;
+    --red: #C0392B;
+    --red-light: #FDECEA;
+    --purple: #6B4FAB;
+    --purple-light: #F0ECFA;
+    --shadow-sm: 0 1px 3px rgba(11,31,58,0.07), 0 1px 2px rgba(11,31,58,0.05);
+    --shadow-md: 0 4px 12px rgba(11,31,58,0.08), 0 2px 4px rgba(11,31,58,0.05);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--gray-800);
+    min-height: 100vh;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: var(--navy);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-group { display: flex; align-items: center; gap: 10px; }
+  .logo-mark {
+    width: 36px; height: 36px;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-text .brand { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.04em; }
+  .logo-text .sub { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; text-transform: uppercase; }
+
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .nav-links { display: flex; gap: 0; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px; font-weight: 400;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+  .nav-links a.active { color: var(--white); font-weight: 500; background: rgba(255,255,255,0.12); }
+
+  .icon-btn {
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: rgba(255,255,255,0.7);
+    transition: background 0.15s;
+  }
+  .icon-btn:hover { background: rgba(255,255,255,0.18); }
+
+  .mentor-role-chip {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(42,157,143,0.2);
+    border: 1px solid rgba(42,157,143,0.35);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px; font-weight: 600; color: #5DCFC3;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .mentor-role-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: #5DCFC3; }
+
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: var(--white); cursor: pointer;
+  }
+
+  /* ── PAGE ── */
+  .page { max-width: 1140px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+
+  /* ── HERO ── */
+  .hero {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px; font-weight: 400;
+    color: var(--navy); letter-spacing: -0.02em; line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .hero p { font-size: 14px; color: var(--gray-600); }
+
+  .summary-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+  .summary-chip {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .summary-chip .chip-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--navy); line-height: 1;
+  }
+  .summary-chip .chip-label { font-size: 12px; color: var(--gray-600); line-height: 1.3; }
+  .chip-divider { width: 1px; height: 28px; background: var(--gray-200); }
+
+  /* ── ACTION BAR ── */
+  .action-bar {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    position: relative; flex: 1; min-width: 200px; max-width: 320px;
+  }
+  .search-wrap svg {
+    position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+    color: var(--gray-400); pointer-events: none;
+  }
+  .search-input {
+    width: 100%; height: 38px;
+    padding: 0 12px 0 34px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; color: var(--gray-800);
+    outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .search-input::placeholder { color: var(--gray-400); }
+  .search-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(27,94,168,0.1); }
+
+  .sort-select {
+    height: 38px; padding: 0 32px 0 12px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; color: var(--gray-800);
+    outline: none; cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A8A49E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    transition: border-color 0.15s;
+  }
+  .sort-select:focus { border-color: var(--blue); }
+
+  .filter-tabs {
+    display: flex; gap: 4px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 3px;
+    margin-left: auto;
+  }
+  .filter-tab {
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px; font-weight: 500;
+    color: var(--gray-600);
+    cursor: pointer; border: none; background: transparent;
+    transition: all 0.12s; white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .filter-tab.active { background: var(--navy); color: var(--white); }
+  .filter-tab:hover:not(.active) { background: var(--gray-100); color: var(--gray-800); }
+  .filter-tab .tab-count {
+    font-size: 11px; font-weight: 600;
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px; padding: 1px 6px; min-width: 18px; text-align: center;
+  }
+  .filter-tab:not(.active) .tab-count {
+    background: var(--gray-200); color: var(--gray-600);
+  }
+
+  /* ── PRIORITY ALERT ── */
+  .priority-alert {
+    display: flex; align-items: center; gap: 12px;
+    background: #FFF8F2;
+    border: 1px solid #F5C59A;
+    border-left: 3px solid var(--amber);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+    font-size: 13px; color: var(--gray-800);
+  }
+  .priority-alert strong { color: var(--amber); }
+
+  /* ── WORK PLAN TABLE ── */
+  .table-wrap {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th {
+    padding: 11px 18px;
+    text-align: left;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--gray-400);
+    background: var(--sand);
+    border-bottom: 1px solid var(--gray-200);
+    white-space: nowrap; cursor: pointer; user-select: none;
+  }
+  thead th:hover { color: var(--gray-800); }
+  thead th .sort-icon { margin-left: 4px; opacity: 0.4; font-size: 10px; }
+  thead th.sorted .sort-icon { opacity: 1; color: var(--blue); }
+
+  tbody tr {
+    border-bottom: 1px solid var(--gray-100);
+    transition: background 0.1s;
+    cursor: pointer;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #F5F8FF; }
+  tbody tr.action-required { background: #FFFAF5; }
+  tbody tr.action-required:hover { background: #FFF4E8; }
+
+  tbody td {
+    padding: 14px 18px;
+    font-size: 13px; color: var(--gray-800);
+    vertical-align: middle;
+  }
+
+  /* Learner cell */
+  .learner-cell { display: flex; align-items: center; gap: 10px; }
+  .learner-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; flex-shrink: 0;
+  }
+  .av-blue { background: #EBF3FF; color: var(--blue); }
+  .av-teal { background: var(--accent-light); color: var(--accent); }
+  .av-amber { background: var(--amber-light); color: var(--amber); }
+  .av-purple { background: var(--purple-light); color: var(--purple); }
+  .av-green { background: var(--green-light); color: var(--green); }
+
+  .learner-name { font-weight: 500; font-size: 13px; color: var(--gray-800); }
+  .learner-id { font-size: 11px; color: var(--gray-400); margin-top: 1px; font-family: monospace; letter-spacing: 0.04em; }
+
+  /* Status badges */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500;
+    padding: 4px 9px; border-radius: 20px; white-space: nowrap;
+  }
+  .status-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  .badge-pending-review { background: var(--amber-light); color: var(--amber); border: 1px solid #F5C59A; }
+  .badge-pending-review .dot { background: var(--amber); animation: blink 1.8s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .badge-rejected { background: var(--red-light); color: var(--red); border: 1px solid #F5ABAB; }
+  .badge-rejected .dot { background: var(--red); }
+
+  .badge-completed { background: var(--green-light); color: var(--green); }
+  .badge-completed .dot { background: var(--green); }
+
+  .badge-draft { background: #EBF3FF; color: var(--blue); }
+  .badge-draft .dot { background: var(--blue); }
+
+  .badge-not-submitted { background: var(--gray-100); color: var(--gray-600); }
+  .badge-not-submitted .dot { background: var(--gray-400); }
+
+  .badge-not-claimed { background: var(--purple-light); color: var(--purple); }
+  .badge-not-claimed .dot { background: var(--purple); }
+
+  .legend-section {
+    margin-top: 2rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .legend-title {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gray-400); margin-bottom: 1rem;
+  }
+  .legend-groups { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .legend-group { display: flex; flex-direction: column; }
+  .legend-group-label {
+    font-size: 11px; font-weight: 600; color: var(--gray-400);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .legend-badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+  /* Action flag */
+  .action-flag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 600;
+    color: var(--amber);
+    background: var(--amber-light);
+    border: 1px solid #F5C59A;
+    border-radius: var(--radius-sm);
+    padding: 3px 8px;
+  }
+
+  /* Date cell */
+  .date-cell { font-size: 12px; color: var(--gray-600); }
+  .date-empty { color: var(--gray-400); }
+
+  /* Review btn */
+  .review-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 500;
+    color: var(--blue);
+    border: 1px solid rgba(27,94,168,0.3);
+    background: #EBF3FF;
+    border-radius: var(--radius-sm);
+    padding: 5px 11px;
+    cursor: pointer; transition: all 0.12s; text-decoration: none;
+  }
+  .review-btn:hover { background: #D6E8FF; border-color: var(--blue); }
+
+  .review-btn-urgent {
+    background: var(--amber-light);
+    border-color: #F5C59A;
+    color: var(--amber);
+  }
+  .review-btn-urgent:hover { background: #FDDBB8; }
+
+  /* Empty state */
+  .empty-state {
+    padding: 3rem;
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 14px;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gray-400); margin-bottom: 0.75rem;
+  }
+
+  svg.icon { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="logo-group">
+    <div class="logo-mark">
+      <svg width="24" height="20" viewBox="0 0 24 20" fill="none">
+        <path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/>
+        <path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="brand">CPA Canada</span>
+      <span class="sub">Chartered Professional Accountants</span>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="mentor-role-chip"><div class="dot"></div>Mentor</div>
+    <nav class="nav-links">
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Work Plans</a>
+      <a href="#">Reports</a>
+    </nav>
+    <div class="icon-btn" title="Settings">
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+    <div class="icon-btn" title="Notifications">
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <div class="avatar">MR</div>
+  </div>
+</header>
+
+<!-- PAGE -->
+<main class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <h1>Assigned Work Plans</h1>
+      <p>Review, approve, and manage your learners' submitted work plans</p>
+    </div>
+    <div class="summary-chips">
+      <div class="summary-chip">
+        <div>
+          <div class="chip-val" id="total-count">8</div>
+          <div class="chip-label">Total assigned</div>
+        </div>
+        <div class="chip-divider"></div>
+        <div>
+          <div class="chip-val" style="color:var(--amber)" id="action-count">3</div>
+          <div class="chip-label">Require action</div>
+        </div>
+        <div class="chip-divider"></div>
+        <div>
+          <div class="chip-val" style="color:var(--green)" id="approved-count">2</div>
+          <div class="chip-label">Approved</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIORITY ALERT -->
+  <div class="priority-alert" id="priority-alert">
+    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span><strong>3 work plans</strong> are pending your review and require action.</span>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="action-bar">
+    <div class="search-wrap">
+      <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" type="text" id="search-input" placeholder="Search by learner name or ID…" oninput="applyFilters()">
+    </div>
+
+    <select class="sort-select" id="sort-select" onchange="applyFilters()">
+      <option value="">Sort by: Default</option>
+      <option value="name-asc">Name A → Z</option>
+      <option value="name-desc">Name Z → A</option>
+      <option value="status">Status</option>
+      <option value="submitted">Submitted date</option>
+    </select>
+
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all" onclick="setFilter('all', this)">
+        All <span class="tab-count" id="count-all">8</span>
+      </button>
+      <button class="filter-tab" data-filter="pending-review" onclick="setFilter('pending-review', this)">
+        Pending review <span class="tab-count" id="count-pending-review">0</span>
+      </button>
+      <button class="filter-tab" data-filter="rejected" onclick="setFilter('rejected', this)">
+        Rejected <span class="tab-count" id="count-rejected">0</span>
+      </button>
+      <button class="filter-tab" data-filter="completed" onclick="setFilter('completed', this)">
+        Completed <span class="tab-count" id="count-completed">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="section-label">Work plan list</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th onclick="sortBy('name')">Learner <span class="sort-icon">↕</span></th>
+          <th>CPA Canada ID</th>
+          <th onclick="sortBy('status')">Status <span class="sort-icon">↕</span></th>
+          <th onclick="sortBy('submitted')">Submitted date <span class="sort-icon">↕</span></th>
+          <th onclick="sortBy('start')">Start date <span class="sort-icon">↕</span></th>
+          <th onclick="sortBy('end')">End date <span class="sort-icon">↕</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="work-plan-table">
+      </tbody>
+    </table>
+    <div class="empty-state" id="empty-state" style="display:none">
+      No work plans match your current filters.
+    </div>
+  </div>
+
+</main>
+
+<script>
+const workPlans = [
+  { id: 1, name: 'Dannie Nguyen',    cpaId: 'CPA-2024-00412', avatar: 'DN', avatarClass: 'av-blue',   status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-10', start: '2024-09-01', end: '2026-08-31', actionRequired: true },
+  { id: 2, name: 'Marcus Leblanc',   cpaId: 'CPA-2024-00387', avatar: 'ML', avatarClass: 'av-teal',   status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-14', start: '2024-10-01', end: '2026-09-30', actionRequired: true },
+  { id: 3, name: 'Aisha Okonkwo',    cpaId: 'CPA-2023-00291', avatar: 'AO', avatarClass: 'av-purple', status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-18', start: '2023-11-15', end: '2025-11-14', actionRequired: true },
+  { id: 4, name: 'Sofia Reyes',      cpaId: 'CPA-2024-00451', avatar: 'SR', avatarClass: 'av-amber',  status: 'rejected',       statusLabel: 'Rejected',       submitted: '2025-02-20', start: '2024-11-01', end: '2026-10-31', actionRequired: false },
+  { id: 5, name: 'James Whitfield',  cpaId: 'CPA-2023-00318', avatar: 'JW', avatarClass: 'av-green',  status: 'completed',      statusLabel: 'Completed',      submitted: '2025-01-22', start: '2023-08-01', end: '2025-07-31', actionRequired: false },
+  { id: 6, name: 'Priya Sharma',     cpaId: 'CPA-2024-00403', avatar: 'PS', avatarClass: 'av-blue',   status: 'rejected',       statusLabel: 'Rejected',       submitted: '2025-01-10', start: '2024-08-15', end: '2026-08-14', actionRequired: false },
+  { id: 7, name: 'Liam Tremblay',    cpaId: 'CPA-2023-00355', avatar: 'LT', avatarClass: 'av-teal',   status: 'completed',      statusLabel: 'Completed',      submitted: '2025-02-05', start: '2023-07-01', end: '2025-06-30', actionRequired: false },
+  { id: 8, name: 'Fatima Al-Hassan', cpaId: 'CPA-2024-00479', avatar: 'FA', avatarClass: 'av-amber',  status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-20', start: '2024-12-01', end: '2026-11-30', actionRequired: true },
+];
+
+let currentFilter = 'all';
+let currentSort = '';
+let currentSearch = '';
+
+const statusBadgeClass = {
+  'pending-review': 'badge-pending-review',
+  'rejected':       'badge-rejected',
+  'completed':      'badge-completed',
+};
+
+function updateCounts(data) {
+  document.getElementById('count-all').textContent = workPlans.length;
+  document.getElementById('count-pending-review').textContent = workPlans.filter(w => w.status === 'pending-review').length;
+  document.getElementById('count-rejected').textContent = workPlans.filter(w => w.status === 'rejected').length;
+  document.getElementById('count-completed').textContent = workPlans.filter(w => w.status === 'completed').length;
+  const actionCount = workPlans.filter(w => w.actionRequired).length;
+  document.getElementById('action-count').textContent = actionCount;
+  document.getElementById('approved-count').textContent = workPlans.filter(w => w.status === 'completed').length;
+  const alert = document.getElementById('priority-alert');
+  if (actionCount > 0) {
+    alert.style.display = 'flex';
+    alert.querySelector('strong').textContent = actionCount + ' work plan' + (actionCount > 1 ? 's' : '');
+  } else {
+    alert.style.display = 'none';
+  }
+}
+
+function formatDate(d) {
+  if (!d) return '<span class="date-empty">—</span>';
+  const [y, m, day] = d.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[parseInt(m)-1]} ${parseInt(day)}, ${y}`;
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function sortBy(field) {
+  currentSort = field;
+  applyFilters();
+}
+
+function applyFilters() {
+  currentSearch = document.getElementById('search-input').value.toLowerCase();
+  const sortVal = document.getElementById('sort-select').value || currentSort;
+
+  let data = workPlans.filter(wp => {
+    const matchFilter = currentFilter === 'all' || wp.status === currentFilter;
+    const matchSearch = wp.name.toLowerCase().includes(currentSearch) || wp.cpaId.toLowerCase().includes(currentSearch);
+    return matchFilter && matchSearch;
+  });
+
+  if (sortVal === 'name-asc') data.sort((a,b) => a.name.localeCompare(b.name));
+  else if (sortVal === 'name-desc') data.sort((a,b) => b.name.localeCompare(a.name));
+  else if (sortVal === 'status') data.sort((a,b) => a.status.localeCompare(b.status));
+  else if (sortVal === 'submitted') data.sort((a,b) => (b.submitted||'').localeCompare(a.submitted||''));
+  else data.sort((a,b) => b.actionRequired - a.actionRequired);
+
+  renderTable(data);
+}
+
+function renderTable(data) {
+  const tbody = document.getElementById('work-plan-table');
+  const empty = document.getElementById('empty-state');
+
+  if (data.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    tbody.innerHTML = data.map(wp => `
+      <tr class="${wp.status === 'pending-review' ? 'action-required' : ''}" onclick="handleReview(${wp.id})">
+        <td>
+          <div class="learner-cell">
+            <div class="learner-avatar ${wp.avatarClass}">${wp.avatar}</div>
+            <div>
+              <div class="learner-name">${wp.name}</div>
+            </div>
+          </div>
+        </td>
+        <td><span class="learner-id" style="font-size:12px;color:var(--gray-600);font-family:monospace;letter-spacing:0.03em">${wp.cpaId}</span></td>
+        <td><span class="status-badge ${statusBadgeClass[wp.status]}"><span class="dot"></span>${wp.statusLabel}</span></td>
+        <td class="date-cell">${formatDate(wp.submitted)}</td>
+        <td class="date-cell">${formatDate(wp.start)}</td>
+        <td class="date-cell">${formatDate(wp.end)}</td>
+        <td>
+          <a class="review-btn ${wp.status === 'pending-review' ? 'review-btn-urgent' : ''}" onclick="event.stopPropagation(); handleReview(${wp.id})">
+            <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Review
+          </a>
+        </td>
+      </tr>
+    `).join('');
+  }
+}
+
+function handleReview(id) {
+  const wp = workPlans.find(w => w.id === id);
+  alert(`Opening work plan for ${wp.name} (${wp.cpaId})`);
+}
+
+applyFilters();
+updateCounts();
+</script>
+
+</body>
+</html>
