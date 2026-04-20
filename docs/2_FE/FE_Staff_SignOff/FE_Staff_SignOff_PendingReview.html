@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - FE Staff Sign-Off Review</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0B1F3A; --blue:#1B5EA8; --accent:#2A9D8F; --amber:#E76F1A; --amber-light:#FEF3E8;
+    --sand:#F7F5F2; --white:#FFFFFF; --gray-100:#F2F1EF; --gray-200:#E4E2DE; --gray-300:#D5D1CA;
+    --gray-400:#A8A49E; --gray-600:#6B6760; --gray-800:#2E2C2A; --green:#2D7A4E; --green-light:#E8F5EE;
+    --red:#C0392B; --red-light:#FDECEA; --shadow-sm:0 1px 3px rgba(11,31,58,.07),0 1px 2px rgba(11,31,58,.05);
+    --shadow-md:0 8px 24px rgba(11,31,58,.08),0 2px 6px rgba(11,31,58,.05); --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--gray-800);min-height:100vh}
+  .topbar{background:var(--navy);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:100}
+  .logo-group{display:flex;align-items:center;gap:10px}
+  .logo-mark{width:36px;height:36px;background:var(--white);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center}
+  .logo-text{display:flex;flex-direction:column;line-height:1.1}
+  .logo-text .brand{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.04em}
+  .logo-text .sub{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.02em;text-transform:uppercase}
+  .topbar-right{display:flex;align-items:center;gap:12px}
+  .nav-links{display:flex;gap:4px;align-items:center}
+  .nav-links a{color:rgba(255,255,255,.55);font-size:14px;text-decoration:none;padding:8px 14px;border-radius:var(--radius-sm)}
+  .nav-links a:hover,.nav-links a.active{color:var(--white);background:rgba(255,255,255,.08)}
+  .staff-role-chip{display:flex;align-items:center;gap:6px;background:rgba(42,157,143,.2);border:1px solid rgba(42,157,143,.35);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:#5DCFC3;letter-spacing:.05em;text-transform:uppercase}
+  .staff-role-chip .dot{width:6px;height:6px;border-radius:50%;background:#5DCFC3}
+  .role-dropdown{position:relative}
+  .role-trigger{list-style:none;display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:var(--white);font-size:13px;font-weight:600;cursor:pointer}
+  .role-trigger::-webkit-details-marker{display:none}
+  .role-label{display:inline-flex;align-items:center;justify-content:center;min-width:72px}
+  .role-caret{font-size:11px;color:rgba(255,255,255,.72)}
+  .role-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:180px;padding:8px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:0 12px 30px rgba(11,31,58,.14);display:flex;flex-direction:column;gap:4px;z-index:20}
+  .role-option{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;color:var(--gray-800);text-decoration:none}
+  .role-option:hover{background:var(--gray-100)}
+  .role-option.active{background:#EBF3FF;color:var(--blue);font-weight:600}
+
+  .page{max-width:1240px;margin:0 auto;padding:2rem 2rem 4rem}
+  .hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--gray-200)}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:38px;font-weight:400;color:var(--navy);margin-bottom:4px}
+  .hero p{font-size:14px;color:var(--gray-600);max-width:760px}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.8rem}
+  .status-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font-size:11px;font-weight:600}
+  .status-badge .dot{width:7px;height:7px;border-radius:50%}
+  .badge-pending{background:var(--amber-light);color:var(--amber)} .badge-pending .dot{background:var(--amber)}
+  .badge-approved{background:var(--green-light);color:var(--green)} .badge-approved .dot{background:var(--green)}
+  .badge-rejected{background:var(--red-light);color:var(--red)} .badge-rejected .dot{background:var(--red)}
+
+  .layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,.95fr);gap:1.25rem}
+  .stack{display:grid;gap:1rem}
+  .card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-xl);box-shadow:var(--shadow-md)}
+  .card-head{padding:1.15rem 1.2rem;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .card-head h2{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;color:var(--navy)}
+  .card-body{padding:1.2rem}
+
+  .identity{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .meta-block{background:linear-gradient(180deg,#fbfaf8,#fff);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:12px 14px}
+  .meta-block .label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px}
+  .meta-block .value{font-size:14px;color:var(--gray-800);line-height:1.45}
+
+  .experience-list{display:grid;gap:1rem}
+  .experience-item{border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:1rem;background:linear-gradient(180deg,rgba(247,245,242,.48),rgba(255,255,255,1))}
+  .experience-item-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:.85rem}
+  .experience-item-title{font-size:15px;font-weight:700;color:var(--navy)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}
+  .item{border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:12px;background:var(--white)}
+  .item .label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-400);margin-bottom:5px}
+  .item .value{font-size:14px;line-height:1.5;color:var(--gray-800)}
+  .item-wide{grid-column:1 / -1}
+  .doc-list{display:flex;flex-wrap:wrap;gap:8px}
+  .doc-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:#EBF3FF;border:1px solid rgba(27,94,168,.18);color:var(--blue);font-size:12px;font-weight:600;text-decoration:none}
+  .doc-icon{width:18px;height:18px;border-radius:50%;background:rgba(27,94,168,.12);display:flex;align-items:center;justify-content:center;font-size:11px}
+  .metric-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .metric-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:999px;background:#F7FAFF;border:1px solid rgba(27,94,168,.14);font-size:12px;color:var(--gray-600)}
+  .metric-pill strong{color:var(--navy)}
+  .review-box{display:grid;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-200)}
+  .review-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}
+  .mini-textarea{width:100%;min-height:98px;resize:vertical;border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:12px 14px;font:14px 'DM Sans',sans-serif;color:var(--gray-800);background:#fff}
+  .mini-textarea:focus{outline:none;border-color:rgba(27,94,168,.35);box-shadow:0 0 0 3px rgba(27,94,168,.08)}
+  .row-actions{display:flex;flex-wrap:wrap;gap:8px}
+  .tiny-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:var(--radius-md);font-size:12px;font-weight:700;border:none;cursor:pointer}
+  .tiny-btn.save{background:var(--white);color:var(--navy);border:1px solid var(--gray-200)}
+  .tiny-btn.approve{background:var(--green);color:var(--white)}
+  .tiny-btn.reject{background:var(--red);color:var(--white)}
+
+  .readonly-note{padding:12px 14px;border-radius:var(--radius-lg);background:#F8FBFF;border:1px dashed rgba(27,94,168,.26);font-size:13px;color:var(--gray-600)}
+  .comment-box{display:grid;gap:12px}
+  .textarea{width:100%;min-height:130px;resize:vertical;border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:14px 15px;font:14px 'DM Sans',sans-serif;color:var(--gray-800);background:#fff}
+  .textarea:focus{outline:none;border-color:rgba(27,94,168,.35);box-shadow:0 0 0 3px rgba(27,94,168,.08)}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;text-decoration:none;border:none;cursor:pointer}
+  .btn-primary{background:var(--navy);color:var(--white)}
+  .btn-secondary{background:var(--white);color:var(--navy);border:1px solid var(--gray-200)}
+  .btn-approve{background:var(--green);color:var(--white)}
+  .btn-reject{background:var(--red);color:var(--white)}
+  .btn-confirm{background:var(--navy);color:var(--white)}
+  .decision-note{margin-top:12px;padding:12px 14px;border-radius:var(--radius-lg);background:#F8FBFF;border:1px solid rgba(27,94,168,.18);font-size:13px;line-height:1.55;color:var(--gray-600)}
+  .decision-note strong{color:var(--navy)}
+  .row-warning{margin-top:10px;padding:10px 12px;border-radius:var(--radius-md);background:var(--red-light);border:1px solid rgba(192,57,43,.2);font-size:12px;color:var(--red)}
+  .final-review-card{border:1px solid rgba(11,31,58,.12);background:linear-gradient(180deg,#FBFAF8,#FFFFFF)}
+  .final-review-copy{font-size:13px;line-height:1.6;color:var(--gray-600)}
+
+  .side{display:grid;gap:1rem;position:sticky;top:84px;align-self:start}
+  .summary-list{display:grid;gap:10px}
+  .summary-item{background:var(--sand);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:12px}
+  .summary-item .label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-400);margin-bottom:5px}
+  .summary-item .value{font-size:15px;font-weight:600;color:var(--navy)}
+  .impact-note{font-size:13px;color:var(--gray-600);line-height:1.55}
+
+  .timeline{display:grid;gap:14px}
+  .timeline-item{position:relative;padding-left:20px}
+  .timeline-item::before{content:'';position:absolute;left:2px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+  .timeline-item::after{content:'';position:absolute;left:6px;top:18px;bottom:-16px;width:2px;background:var(--gray-200)}
+  .timeline-item:last-child::after{display:none}
+  .timeline-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+  .timeline-title{font-size:13px;font-weight:700;color:var(--navy)}
+  .timeline-time{font-size:12px;color:var(--gray-400)}
+  .timeline-copy{font-size:13px;line-height:1.5;color:var(--gray-600)}
+
+  .comments-thread{display:grid;gap:10px}
+  .comment-item{border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:12px;background:#fff}
+  .comment-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+  .comment-author{font-size:13px;font-weight:700;color:var(--navy)}
+  .comment-time{font-size:12px;color:var(--gray-400)}
+  .comment-copy{font-size:13px;line-height:1.55;color:var(--gray-600)}
+
+  @media(max-width:1024px){.layout,.identity,.grid{grid-template-columns:1fr}.side{position:static}}
+  @media(max-width:760px){.topbar{padding:0 1rem}.nav-links{display:none}.page{padding:1.25rem 1rem 3rem}.hero{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo-group"><div class="logo-mark"><svg width="24" height="20" viewBox="0 0 24 20" fill="none"><path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/><path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="logo-text"><span class="brand">CPA Canada</span><span class="sub">Chartered Professional Accountants</span></div></div>
+  <div class="topbar-right"><div class="staff-role-chip"><div class="dot"></div>ASB Staff</div><nav class="nav-links"><a href="../../1_LandingPage/LandingPageStaff/LandingPageStaffFE.html">Dashboard</a><a href="../../1_LandingPage/LandingPageStaff/LandingPageStaffFE.html" class="active">Foundational</a><a href="../../1_LandingPage/LandingPageStaff/LandingPageStaffWP.html">Work Plans</a><a href="../../1_LandingPage/LandingPageStaff/LandingPageStaffRP.html">Reflection Papers</a></nav><details class="role-dropdown"><summary class="role-trigger"><span class="role-label">ASB Staff</span><span class="role-caret">▼</span></summary><div class="role-menu"><a class="role-option" href="../../index.html">Learner</a><a class="role-option" href="../../1_LandingPage/LandingPageMentor/LandingPageMentor1_ZeroProgress.html">Mentor</a><a class="role-option active" href="../../1_LandingPage/LandingPageStaff/LandingPageStaffFE.html">ASB Staff</a></div></details></div>
+</header>
+<main class="page">
+  <div class="hero">
+    <div>
+      <h1>Foundational Experience Review</h1>
+      <p>Review a submitted foundational experience entry, capture ASB Staff comments, and record the final sign-off decision. Learner input is read-only in this step.</p>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="stack">
+      <section class="card">
+        <div class="card-head">
+          <h2>Learner Submission</h2>
+          <span class="status-badge badge-pending" id="submission-status"><span class="dot"></span>Pending ASB Staff Review</span>
+        </div>
+        <div class="card-body">
+          <div class="section-label">Learner identity</div>
+          <div class="identity">
+            <div class="meta-block"><div class="label">Learner</div><div class="value" id="learner-name">Dannie Nguyen</div></div>
+            <div class="meta-block"><div class="label">CPA Canada ID</div><div class="value" id="learner-cpa">CPA-2024-00412</div></div>
+            <div class="meta-block"><div class="label">iMIS ID</div><div class="value" id="learner-imis">IMIS-908721</div></div>
+            <div class="meta-block"><div class="label">Submitted date</div><div class="value" id="submitted-date">Apr 19, 2026</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Experience Details</h2>
+          <div class="readonly-note">Learner-provided details are visible for review only and cannot be edited by ASB Staff.</div>
+        </div>
+        <div class="card-body">
+          <div class="experience-list" id="experience-list"></div>
+        </div>
+      </section>
+
+      <section class="card final-review-card">
+        <div class="card-head">
+          <h2>Final Review Decision</h2>
+          <span style="font-size:12px;color:var(--gray-400)">Confirm after all experience decisions are set</span>
+        </div>
+        <div class="card-body">
+          <p class="final-review-copy">After reviewing each experience above, confirm the overall FE outcome here. This keeps the final action close to the end of the review flow so staff do not need to scroll back up.</p>
+          <div class="decision-note" id="decision-note">Review each experience first. When all rows are marked as approved or rejected, confirm the overall decision to complete this staff review.</div>
+          <div class="btn-row" style="margin-top:14px">
+            <button class="btn btn-confirm" type="button" id="confirm-review-btn">Confirm final decision</button>
+            <a class="btn btn-secondary" href="../../1_LandingPage/LandingPageStaff/LandingPageStaffFE.html">Back to submissions</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="side">
+      <section class="card">
+        <div class="card-head"><h2>Decision</h2></div>
+        <div class="card-body">
+          <div class="summary-list">
+            <div class="summary-item"><div class="label">Current status</div><div class="value" id="side-status">Pending ASB Staff Review</div></div>
+            <div class="summary-item"><div class="label">Approved counted duration</div><div class="value" id="approved-duration">0.0 months</div></div>
+            <div class="summary-item"><div class="label">Approved experiences</div><div class="value" id="approved-count">0 of 0</div></div>
+            <div class="summary-item"><div class="label">Rejected experiences</div><div class="value" id="rejected-count">0 of 0</div></div>
+            <div class="summary-item"><div class="label">Review mode</div><div class="value">Read-only learner input</div></div>
+          </div>
+          <p class="impact-note" id="impact-note" style="margin-top:12px">Approval will record the action in the audit trail and unlock work plan creation for the learner.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Comment History</h2></div>
+        <div class="card-body">
+          <div class="comments-thread" id="comments-thread"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Audit Trail</h2></div>
+        <div class="card-body">
+          <div class="timeline" id="audit-trail"></div>
+        </div>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<script>
+const submissions = {
+  101: {
+    id: 101,
+    learnerName: 'Dannie Nguyen',
+    cpaId: 'CPA-2024-00412',
+    imisId: 'IMIS-908721',
+    submittedDate: 'Apr 19, 2026',
+    status: 'pending',
+    finalDecisionConfirmed: false,
+    experiences: [
+      {
+        title: 'Experience 1',
+        employer: 'North Coast Advisory Group',
+        jobDescription: 'Prepared month-end files, account reconciliations, financial statement support schedules, and client reporting packages for small business engagements.',
+        documents: ['Experience 1 signed document.pdf', 'Employer confirmation letter.pdf'],
+        startDate: '2025-08-01',
+        endDate: '2026-03-31',
+        businessDays: 177,
+        adjustedDays: 173,
+        monthsValue: 8.0,
+        months: '8.0 months',
+        leaveDays: '4 day(s)',
+        leaveNote: 'Statutory holidays and approved unpaid leave already deducted from business-day total.',
+        reviewStatus: 'pending',
+        reviewCommentDraft: ''
+      },
+      {
+        title: 'Experience 2',
+        employer: 'North Coast Advisory Group',
+        jobDescription: 'Supported year-end engagement planning, analytical review files, and client query follow-up for the corporate reporting team.',
+        documents: ['Experience 2 signed document.pdf'],
+        startDate: '2025-04-01',
+        endDate: '2025-07-31',
+        businessDays: 88,
+        adjustedDays: 86,
+        monthsValue: 4.0,
+        months: '4.0 months',
+        leaveDays: '2 day(s)',
+        leaveNote: 'Two personal leave days were reported and deducted.',
+        reviewStatus: 'pending',
+        reviewCommentDraft: ''
+      }
+    ],
+    comments: [
+      {
+        author: 'ASB Staff',
+        time: 'Apr 20, 2026, 9:05 AM',
+        text: 'Submission opened for staff review. Supporting documents and duration calculation are available for verification.'
+      }
+    ],
+    audit: [
+      {
+        title: 'Learner submitted FE',
+        time: 'Apr 19, 2026, 4:42 PM',
+        text: 'Status changed from Draft to Pending ASB Staff Review.'
+      },
+      {
+        title: 'ASB Staff opened review',
+        time: 'Apr 20, 2026, 9:05 AM',
+        text: 'Submission opened in read-only review mode.'
+      }
+    ]
+  },
+  102: {
+    id: 102,
+    learnerName: 'Aisha Okonkwo',
+    cpaId: 'CPA-2023-00291',
+    imisId: 'IMIS-901163',
+    submittedDate: 'Apr 19, 2026',
+    status: 'pending',
+    finalDecisionConfirmed: false,
+    experiences: [
+      {
+        title: 'Experience 1',
+        employer: 'Summit Public Practice',
+        jobDescription: 'Supported audit planning, testing schedules, and client communications for assurance engagements and internal reporting cycles.',
+        documents: ['Experience 1 signed document.pdf'],
+        startDate: '2025-10-01',
+        endDate: '2026-03-31',
+        businessDays: 132,
+        adjustedDays: 130,
+        monthsValue: 6.0,
+        months: '6.0 months',
+        leaveDays: '2 day(s)',
+        leaveNote: 'Two leave days were taken during the winter close cycle.',
+        reviewStatus: 'pending',
+        reviewCommentDraft: ''
+      }
+    ],
+    comments: [],
+    audit: [
+      {
+        title: 'Learner submitted FE',
+        time: 'Apr 19, 2026, 11:18 AM',
+        text: 'Status changed from Draft to Pending ASB Staff Review.'
+      }
+    ]
+  }
+};
+
+const statusConfig = {
+  pending: {
+    label: 'Pending ASB Staff Review',
+    badgeClass: 'badge-pending',
+    note: 'Approval will record the action in the audit trail and unlock work plan creation for the learner.'
+  },
+  approved: {
+    label: 'Approved',
+    badgeClass: 'badge-approved',
+    note: 'Approval is recorded. The learner can now start creating a work plan.'
+  },
+  'partially-approved': {
+    label: 'Partially Approved',
+    badgeClass: 'badge-approved',
+    note: 'The final review decision is confirmed. Only approved experiences will count toward the learner total, while rejected experiences will not.'
+  },
+  rejected: {
+    label: 'Rejected',
+    badgeClass: 'badge-rejected',
+    note: 'Rejection is recorded. The learner will see the comment history and rejection outcome.'
+  }
+};
+
+const params = new URLSearchParams(window.location.search);
+const submissionId = params.get('id') || '101';
+const storageKey = `feStaffPendingReview:${submissionId}`;
+const fallback = submissions[submissionId] || submissions[101];
+localStorage.removeItem(storageKey);
+const state = JSON.parse(JSON.stringify(fallback));
+state.status = 'pending';
+state.finalDecisionConfirmed = false;
+state.experiences = state.experiences.map((exp) => ({
+  ...exp,
+  reviewStatus: 'pending',
+  reviewCommentDraft: '',
+  rejectionWarning: ''
+}));
+
+function approvedCountTotal() {
+  return state.experiences.filter((exp) => exp.reviewStatus === 'approved').length;
+}
+
+function rejectedCountTotal() {
+  return state.experiences.filter((exp) => exp.reviewStatus === 'rejected').length;
+}
+
+function allExperiencesReviewed() {
+  return state.experiences.length > 0 && state.experiences.every((exp) => exp.reviewStatus !== 'pending');
+}
+
+function derivedFinalStatus() {
+  if (approvedCountTotal() === state.experiences.length) return 'approved';
+  if (rejectedCountTotal() === state.experiences.length) return 'rejected';
+  if (approvedCountTotal() > 0 || rejectedCountTotal() > 0) return 'partially-approved';
+  return 'pending';
+}
+
+function renderStatus() {
+  const cfg = statusConfig[derivedFinalStatus()] || statusConfig.pending;
+  document.getElementById('submission-status').className = `status-badge ${cfg.badgeClass}`;
+  document.getElementById('submission-status').innerHTML = '<span class="dot"></span>' + cfg.label;
+  document.getElementById('side-status').textContent = cfg.label;
+  document.getElementById('impact-note').textContent = cfg.note;
+  const confirmBtn = document.getElementById('confirm-review-btn');
+  const decisionNote = document.getElementById('decision-note');
+  if (state.finalDecisionConfirmed) {
+    confirmBtn.textContent = 'Decision confirmed';
+    confirmBtn.disabled = true;
+    confirmBtn.style.opacity = '0.65';
+    confirmBtn.style.cursor = 'default';
+    decisionNote.innerHTML = rejectedCountTotal() === state.experiences.length
+      ? '<strong>Final outcome:</strong> all experiences were rejected and the submission is now marked as rejected.'
+      : approvedCountTotal() === state.experiences.length
+        ? '<strong>Final outcome:</strong> all experiences were approved and the submission is now marked as approved.'
+        : '<strong>Final outcome:</strong> this submission is partially approved. Only approved experiences count toward the learner total.';
+  } else if (!allExperiencesReviewed()) {
+    confirmBtn.textContent = 'Confirm final decision';
+    confirmBtn.disabled = false;
+    confirmBtn.style.opacity = '1';
+    confirmBtn.style.cursor = 'pointer';
+    decisionNote.innerHTML = approvedCountTotal() > 0 || rejectedCountTotal() > 0
+      ? '<strong>In progress:</strong> some experience decisions are already set. Finish the remaining rows to confirm the final review decision.'
+      : '<strong>Next step:</strong> mark every experience as approved or rejected before confirming the final review decision.';
+  } else {
+    confirmBtn.textContent = 'Confirm final decision';
+    confirmBtn.disabled = false;
+    confirmBtn.style.opacity = '1';
+    confirmBtn.style.cursor = 'pointer';
+    decisionNote.innerHTML = rejectedCountTotal() === state.experiences.length
+      ? '<strong>Ready to confirm:</strong> all experiences are marked rejected. Confirming will set the overall submission status to rejected.'
+      : approvedCountTotal() === state.experiences.length
+        ? '<strong>Ready to confirm:</strong> all experiences are marked approved. Confirming will set the overall submission status to approved.'
+        : '<strong>Ready to confirm:</strong> your experience-level decisions are set. Confirming will set the overall submission status to partially approved.';
+  }
+}
+
+function approvedMonthsTotal() {
+  return state.experiences
+    .filter((exp) => exp.reviewStatus === 'approved')
+    .reduce((sum, exp) => sum + (Number(exp.monthsValue) || 0), 0);
+}
+
+function experienceBadge(exp) {
+  return exp.reviewStatus === 'approved'
+    ? 'badge-approved'
+    : exp.reviewStatus === 'rejected'
+      ? 'badge-rejected'
+      : 'badge-pending';
+}
+
+function experienceStatusLabel(exp) {
+  return exp.reviewStatus === 'approved'
+    ? 'Approved'
+    : exp.reviewStatus === 'rejected'
+      ? 'Rejected'
+      : 'Pending review';
+}
+
+function renderIdentity() {
+  document.getElementById('learner-name').textContent = state.learnerName;
+  document.getElementById('learner-cpa').textContent = state.cpaId;
+  document.getElementById('learner-imis').textContent = state.imisId;
+  document.getElementById('submitted-date').textContent = state.submittedDate;
+  document.getElementById('approved-duration').textContent = `${approvedMonthsTotal().toFixed(1)} months`;
+  document.getElementById('approved-count').textContent = `${approvedCountTotal()} of ${state.experiences.length}`;
+  document.getElementById('rejected-count').textContent = `${rejectedCountTotal()} of ${state.experiences.length}`;
+}
+
+function renderExperiences() {
+  const container = document.getElementById('experience-list');
+  container.innerHTML = state.experiences.map((exp, index) => `
+    <section class="experience-item" id="experience-${index}">
+      <div class="experience-item-head">
+        <div class="experience-item-title">${exp.title}</div>
+        <div class="status-badge ${experienceBadge(exp)}"><span class="dot"></span>${experienceStatusLabel(exp)}</div>
+      </div>
+      <div class="grid">
+        <div class="item"><div class="label">Employer</div><div class="value">${exp.employer}</div></div>
+        <div class="item item-wide"><div class="label">Job description</div><div class="value">${exp.jobDescription}</div></div>
+        <div class="item"><div class="label">Supporting document</div><div class="value"><div class="doc-list">${exp.documents.map((doc) => `<a class="doc-chip" href="#"><span class="doc-icon">PDF</span>${doc}</a>`).join('')}</div></div></div>
+        <div class="item"><div class="label">Start date</div><div class="value">${exp.startDate}</div></div>
+        <div class="item"><div class="label">End date</div><div class="value">${exp.endDate}</div></div>
+        <div class="item"><div class="label">Number of leaves</div><div class="value">${exp.leaveDays}</div></div>
+        <div class="item"><div class="label">Leave note</div><div class="value">${exp.leaveNote}</div></div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-pill">Business days: <strong>${exp.businessDays}</strong></div>
+        <div class="metric-pill">Adjusted days: <strong>${exp.adjustedDays}</strong></div>
+        <div class="metric-pill">Counted duration: <strong>${exp.months}</strong></div>
+      </div>
+      <div class="review-box">
+        <div class="review-grid">
+          <textarea class="mini-textarea" id="row-comment-${index}" placeholder="Add a review comment for ${exp.title}. This comment will be stored in the submission history.">${exp.reviewCommentDraft || ''}</textarea>
+          <button class="tiny-btn save" type="button" onclick="saveRowComment(${index})">Save comment</button>
+        </div>
+        <div class="row-actions">
+          <button class="tiny-btn approve" type="button" onclick="setExperienceStatus(${index}, 'approved')">Approve ${exp.title}</button>
+          <button class="tiny-btn reject" type="button" onclick="setExperienceStatus(${index}, 'rejected')">Reject ${exp.title}</button>
+        </div>
+        ${exp.rejectionWarning ? `<div class="row-warning">${exp.rejectionWarning}</div>` : ''}
+      </div>
+    </section>
+  `).join('');
+}
+
+function renderComments() {
+  const thread = document.getElementById('comments-thread');
+  if (!state.comments.length) {
+    thread.innerHTML = '<div class="readonly-note">No comments have been added yet.</div>';
+    return;
+  }
+  thread.innerHTML = state.comments.map((comment) => `
+    <div class="comment-item">
+      <div class="comment-meta">
+        <div class="comment-author">${comment.author}</div>
+        <div class="comment-time">${comment.time}</div>
+      </div>
+      <div class="comment-copy">${comment.text}</div>
+    </div>
+  `).join('');
+}
+
+function renderAudit() {
+  const container = document.getElementById('audit-trail');
+  container.innerHTML = state.audit.map((entry) => `
+    <div class="timeline-item">
+      <div class="timeline-head">
+        <div class="timeline-title">${entry.title}</div>
+        <div class="timeline-time">${entry.time}</div>
+      </div>
+      <div class="timeline-copy">${entry.text}</div>
+    </div>
+  `).join('');
+}
+
+function persist() {
+  localStorage.setItem(storageKey, JSON.stringify(state));
+}
+
+function stampNow() {
+  return new Date().toLocaleString('en-CA', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit'
+  });
+}
+
+function saveRowComment(index) {
+  const textarea = document.getElementById(`row-comment-${index}`);
+  const text = textarea.value.trim();
+  state.experiences[index].reviewCommentDraft = text;
+  if (!text) {
+    persist();
+    renderExperiences();
+    return;
+  }
+  const time = stampNow();
+  state.comments.unshift({
+    author: `ASB Staff on ${state.experiences[index].title}`,
+    time,
+    text
+  });
+  state.audit.unshift({
+    title: `${state.experiences[index].title} comment saved`,
+    time,
+    text: `A review comment was recorded for ${state.experiences[index].title}.`
+  });
+  state.experiences[index].rejectionWarning = '';
+  persist();
+  renderIdentity();
+  renderStatus();
+  renderComments();
+  renderAudit();
+  renderExperiences();
+}
+
+function setExperienceStatus(index, nextStatus) {
+  if (state.finalDecisionConfirmed) return;
+  const row = state.experiences[index];
+  row.rejectionWarning = '';
+  const textarea = document.getElementById(`row-comment-${index}`);
+  const inlineComment = textarea ? textarea.value.trim() : '';
+  if (inlineComment) {
+    row.reviewCommentDraft = inlineComment;
+  }
+  state.finalDecisionConfirmed = false;
+  const time = stampNow();
+  state.audit.unshift({
+    title: `${row.title} marked ${nextStatus === 'approved' ? 'approved' : 'rejected'}`,
+    time,
+    text: nextStatus === 'approved'
+      ? `${row.title} was marked approved for the final review decision.`
+      : `${row.title} was marked rejected for the final review decision and will require a final confirmation step.`
+  });
+  row.reviewStatus = nextStatus;
+  persist();
+  renderIdentity();
+  renderStatus();
+  renderExperiences();
+  renderComments();
+  renderAudit();
+}
+
+document.getElementById('confirm-review-btn').addEventListener('click', () => {
+  if (state.finalDecisionConfirmed || !allExperiencesReviewed()) return;
+  state.finalDecisionConfirmed = true;
+  state.status = derivedFinalStatus();
+  const time = stampNow();
+  state.audit.unshift({
+    title: state.status === 'rejected'
+      ? 'Final review confirmed as rejected'
+      : state.status === 'approved'
+        ? 'Final review confirmed as approved'
+        : 'Final review confirmed as partially approved',
+    time,
+    text: state.status === 'rejected'
+      ? 'All reviewed experiences were rejected. The submission is now marked as rejected.'
+      : state.status === 'approved'
+        ? 'All reviewed experiences were approved. The submission is now marked as approved and the learner can move forward.'
+        : 'The ASB Staff reviewer confirmed the final decision. The submission is now partially approved, and only approved experiences will count toward the learner total.'
+  });
+  persist();
+  renderIdentity();
+  renderStatus();
+  renderExperiences();
+  renderComments();
+  renderAudit();
+});
+
+renderIdentity();
+renderStatus();
+renderExperiences();
+renderComments();
+renderAudit();
+</script>
+</body>
+</html>

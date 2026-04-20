@@ -38,7 +38,7 @@
   <div class="progress-grid">
     <div class="prog-card"><div class="prog-card-title">Foundational experience</div><span class="status-badge"><span class="dot"></span>Pending staff review</span><div class="prog-card-value" style="margin-top:10px">100%</div><div class="prog-card-sub">Your FE submission is waiting for final staff sign-off</div></div>
     <div class="prog-card"><div class="prog-card-title">Practical experience</div><span class="status-badge" style="background:var(--gray-100);color:var(--gray-600)"><span class="dot" style="background:var(--gray-400)"></span>Not started</span><div class="prog-card-value" style="margin-top:10px">0%</div><div class="prog-card-sub">The work plan unlocks after staff completes the review</div></div>
-    <div class="prog-card"><div class="prog-card-title">Overall work experience</div><span class="status-badge"><span class="dot"></span>Awaiting review</span><div class="prog-card-value" style="margin-top:10px">0 <span style="font-size:16px;font-family:'DM Sans',sans-serif;color:#A8A49E">/ 24 mos</span></div><div class="prog-card-sub">Time will count forward once your FE outcome is confirmed</div></div>
+    <div class="prog-card"><div class="prog-card-title">Overall work experience</div><span class="status-badge" id="overall-badge"><span class="dot"></span>Awaiting review</span><div class="prog-card-value" id="overall-months" style="margin-top:10px">0 <span style="font-size:16px;font-family:'DM Sans',sans-serif;color:#A8A49E">/ 24 mos</span></div><div class="prog-card-sub" id="overall-copy">Time will count forward once your FE outcome is confirmed</div></div>
   </div>
   <div class="cards">
     <div class="card"><span class="status-badge"><span class="dot"></span>Pending ASB Staff Review</span><h2>Submitted FE item</h2><p>Your submission is read-only while staff review is in progress. You can still open the submitted item to review what was sent.</p><div class="btn-row"><a class="btn btn-dark" href="../../2_FE/ViewFELearner/ViewFESubmitted.html">View submitted item</a></div></div>
@@ -48,8 +48,19 @@
 </main>
 <script>
 const draft = JSON.parse(localStorage.getItem('feDraft') || 'null');
+const staffReview = JSON.parse(localStorage.getItem('feStaffReview:101') || 'null');
 if (draft && draft.rows && draft.rows.length) {
   if (draft.submittedAt) document.getElementById('submitted-date').textContent = new Date(draft.submittedAt).toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' });
+}
+if (staffReview && Array.isArray(staffReview.experiences)) {
+  const approvedMonths = staffReview.experiences
+    .filter((exp) => exp.reviewStatus === 'approved')
+    .reduce((sum, exp) => sum + (Number(exp.monthsValue) || 0), 0);
+  if (approvedMonths > 0) {
+    document.getElementById('overall-months').innerHTML = `${approvedMonths.toFixed(1)} <span style="font-size:16px;font-family:'DM Sans',sans-serif;color:#A8A49E">/ 24 mos</span>`;
+    document.getElementById('overall-badge').innerHTML = '<span class="dot"></span>Partial approval recorded';
+    document.getElementById('overall-copy').textContent = 'Only approved FE experience is currently counted while the remaining entries stay under staff review.';
+  }
 }
 </script>
 </body>

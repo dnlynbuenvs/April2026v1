@@ -429,8 +429,8 @@
   <div class="topbar-right">
     <div class="staff-role-chip"><div class="dot"></div>ASB Staff</div>
     <nav class="nav-links">
-      <a href="LandingPageStaffFEAll.html">Dashboard</a>
-      <a href="LandingPageStaffFE.html" class="active">Foundational</a>
+      <a href="LandingPageStaffFE.html" class="active">Dashboard</a>
+      <a href="LandingPageStaffFE.html">Foundational</a>
       <a href="LandingPageStaffWP.html">Work Plans</a>
       <a href="LandingPageStaffRP.html">Reflection Papers</a>
     </nav>
@@ -441,13 +441,13 @@
 <main class="page">
   <div class="hero">
     <div>
-      <h1>Foundational Experience Submissions</h1>
-      <p>Review all in-flight foundational experience submissions and open any learner record to inspect details.</p>
+      <h1>All Submission Types</h1>
+      <p>Review mixed in-flight foundational experience, work plan, and reflection paper submissions in one staff view.</p>
     </div>
     <div class="summary-chip">
       <div>
         <div class="chip-val" id="total-count">0</div>
-        <div class="chip-label">Foundational submissions</div>
+        <div class="chip-label">All submissions</div>
       </div>
       <div class="chip-divider"></div>
       <div>
@@ -459,20 +459,20 @@
 
   <div class="priority-alert">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    <span><strong id="priority-count">0 submissions</strong> are currently pending staff review in foundational experience.</span>
+    <span><strong id="priority-count">0 submissions</strong> are currently pending staff review across all submission types.</span>
   </div>
 
   <section class="filter-panel">
     <div class="filter-header">
-      <div class="filter-title">Filter Foundational Experience</div>
+      <div class="filter-title">Filter All Submission Types</div>
       <button class="reset-btn" type="button" onclick="resetFilters()">Reset filters</button>
     </div>
     <div class="filter-grid">
       <div class="field">
         <label for="type-filter">Submission Type</label>
         <select class="filter-select" id="type-filter" onchange="handleTypeChange()">
-          <option value="LandingPageStaffFEAll.html">All</option>
-          <option value="LandingPageStaffFE.html" selected>Foundational experience</option>
+          <option value="LandingPageStaffFEAll.html" selected>All</option>
+          <option value="LandingPageStaffFE.html">Foundational experience</option>
           <option value="LandingPageStaffWP.html">Work plan</option>
           <option value="LandingPageStaffRP.html">Reflection paper</option>
         </select>
@@ -513,8 +513,8 @@
     <div class="table-head">
       <div>
         <div class="table-kicker">ASB Staff Dashboard</div>
-        <h2>Foundational Experience Table</h2>
-        <p>Submitted date, current status, CPA Canada ID, and experience dates.</p>
+        <h2>All Submission Types Table</h2>
+        <p>Showing all and combining foundational experience, work plans, and reflection paper submissions.</p>
       </div>
  
     </div>
@@ -523,34 +523,45 @@
         <thead>
           <tr>
             <th>Learner</th>
+            <th>Submission Type</th>
             <th>CPA Canada ID</th>
             <th>Current Status</th>
             <th>Submitted Date</th>
-            <th>Start Date</th>
-            <th>End Date</th>
             <th></th>
           </tr>
         </thead>
         <tbody id="submission-table"></tbody>
       </table>
-      <div class="empty-state" id="submission-empty" style="display:none">No foundational experience submissions match the current filters.</div>
+      <div class="empty-state" id="submission-empty" style="display:none">No submissions match the current filters.</div>
     </div>
   </section>
 </main>
 
 <script>
 const submissions = [
-  { id: 101, name: 'Dannie Nguyen', cpaId: 'CPA-2024-00412', imisId: 'IMIS-908721', status: 'pending-review', statusLabel: 'Pending Review', submittedDate: '2026-04-15', startDate: '2026-01-01', endDate: '2026-03-31', avatar: 'DN', avatarClass: 'av-blue' },
-  { id: 102, name: 'Aisha Okonkwo', cpaId: 'CPA-2023-00291', imisId: 'IMIS-901163', status: 'approved', statusLabel: 'Approved', submittedDate: '2026-04-12', startDate: '2025-12-01', endDate: '2026-02-29', avatar: 'AO', avatarClass: 'av-purple' },
-  { id: 103, name: 'Sofia Reyes', cpaId: 'CPA-2024-00451', imisId: 'IMIS-909454', status: 'partially-approved', statusLabel: 'Partially Approved', submittedDate: '2026-04-08', startDate: '2025-11-01', endDate: '2026-01-31', avatar: 'SR', avatarClass: 'av-amber' },
-  { id: 104, name: 'Liam Tremblay', cpaId: 'CPA-2023-00355', imisId: 'IMIS-906780', status: 'rejected', statusLabel: 'Rejected', submittedDate: '2026-04-02', startDate: '2025-10-01', endDate: '2025-12-31', avatar: 'LT', avatarClass: 'av-teal' }
+  { id: 101, type: 'fe', name: 'Dannie Nguyen', cpaId: 'CPA-2024-00412', imisId: 'IMIS-908721', status: 'pending-review', statusLabel: 'Pending Review', submittedDate: '2026-04-15', avatar: 'DN', avatarClass: 'av-blue' },
+  { id: 102, type: 'fe', name: 'Aisha Okonkwo', cpaId: 'CPA-2023-00291', imisId: 'IMIS-901163', status: 'approved', statusLabel: 'Approved', submittedDate: '2026-04-12', avatar: 'AO', avatarClass: 'av-purple' },
+  { id: 103, type: 'fe', name: 'Sofia Reyes', cpaId: 'CPA-2024-00451', imisId: 'IMIS-909454', status: 'partially-approved', statusLabel: 'Partially Approved', submittedDate: '2026-04-08', avatar: 'SR', avatarClass: 'av-amber' },
+  { id: 104, type: 'fe', name: 'Liam Tremblay', cpaId: 'CPA-2023-00355', imisId: 'IMIS-906780', status: 'rejected', statusLabel: 'Rejected', submittedDate: '2026-04-02', avatar: 'LT', avatarClass: 'av-teal' },
+  { id: 201, type: 'wp', name: 'Marcus Leblanc', cpaId: 'CPA-2024-00387', imisId: 'IMIS-903441', status: 'pending-review', statusLabel: 'Pending Review', submittedDate: '2026-04-16', avatar: 'ML', avatarClass: 'av-teal' },
+  { id: 202, type: 'wp', name: 'Priya Sharma', cpaId: 'CPA-2024-00403', imisId: 'IMIS-907102', status: 'in-review', statusLabel: 'In Review', submittedDate: '2026-04-11', avatar: 'PS', avatarClass: 'av-blue' },
+  { id: 203, type: 'wp', name: 'Fatima Al-Hassan', cpaId: 'CPA-2024-00479', imisId: 'IMIS-910208', status: 'pending-review', statusLabel: 'Pending Review', submittedDate: '2026-04-10', avatar: 'FA', avatarClass: 'av-amber' },
+  { id: 301, type: 'rp', name: 'Nina Patel', cpaId: 'CPA-2024-00488', imisId: 'IMIS-911020', status: 'pending-review', statusLabel: 'Pending Review', submittedDate: '2026-04-14', avatar: 'NP', avatarClass: 'av-purple' },
+  { id: 302, type: 'rp', name: 'Owen Chen', cpaId: 'CPA-2024-00497', imisId: 'IMIS-911418', status: 'in-review', statusLabel: 'In Review', submittedDate: '2026-04-09', avatar: 'OC', avatarClass: 'av-blue' }
 ];
 
 const statusBadgeClass = {
   'pending-review': 'badge-pending-review',
+  'in-review': 'badge-in-review',
   'approved': 'badge-approved',
   'partially-approved': 'badge-partially-approved',
   'rejected': 'badge-rejected'
+};
+
+const submissionTypeLabel = {
+  fe: 'Foundational Experience',
+  wp: 'Work Plan',
+  rp: 'Reflection Paper'
 };
 
 function formatDate(value) {
@@ -595,11 +606,10 @@ function renderTable(items) {
           </div>
         </div>
       </td>
+      <td><span class="subline" style="font-size:12px;color:var(--gray-600)">${submissionTypeLabel[item.type] || '-'}</span></td>
       <td><span class="subline" style="font-size:12px;color:var(--gray-600)">${item.cpaId}</span></td>
       <td><span class="status-badge ${statusBadgeClass[item.status]}"><span class="dot"></span>${item.statusLabel}</span></td>
       <td class="date-cell">${formatDate(item.submittedDate)}</td>
-      <td class="date-cell">${formatDate(item.startDate)}</td>
-      <td class="date-cell">${formatDate(item.endDate)}</td>
       <td><a class="review-btn" onclick="event.stopPropagation(); handleReview(${item.id})">Review</a></td>
     </tr>
   `).join('');
@@ -613,11 +623,10 @@ function applyFilters() {
   document.getElementById('total-count').textContent = submissions.length;
   document.getElementById('pending-count').textContent = pending;
   document.getElementById('priority-count').textContent = `${pending} submission${pending === 1 ? '' : 's'}`;
-  document.getElementById('visible-count').textContent = filtered.length;
 }
 
 function resetFilters() {
-  document.getElementById('type-filter').value = 'LandingPageStaffFE.html';
+  document.getElementById('type-filter').value = 'LandingPageStaffFEAll.html';
   document.getElementById('name-filter').value = '';
   document.getElementById('status-filter').value = '';
   document.getElementById('cpa-filter').value = '';
@@ -629,14 +638,22 @@ function resetFilters() {
 function handleReview(id) {
   const item = submissions.find(entry => entry.id === id);
   if (!item) return;
-  const targetMap = {
-    'pending-review': '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_PendingReview.html',
-    'approved': '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_Approved.html',
-    'partially-approved': '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_PartiallyApproved.html',
-    'rejected': '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_Rejected.html'
-  };
-  const target = targetMap[item.status] || '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_PendingReview.html';
-  window.location.href = `${target}?id=${id}`;
+  if (item.type === 'fe') {
+    const targetMap = {
+      'pending-review': '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_PendingReview.html',
+      'approved': '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_Approved.html',
+      'partially-approved': '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_PartiallyApproved.html',
+      'rejected': '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_Rejected.html'
+    };
+    const target = targetMap[item.status] || '../../2_FE/FE_Staff_SignOff/FE_Staff_SignOff_PendingReview.html';
+    window.location.href = `${target}?id=${id}`;
+    return;
+  }
+  if (item.type === 'wp') {
+    window.location.href = 'LandingPageStaffWP.html';
+    return;
+  }
+  window.location.href = 'LandingPageStaffRP.html';
 }
 
 function handleTypeChange() {

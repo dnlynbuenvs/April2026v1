@@ -132,6 +132,7 @@
   <div class="topbar-right">
     <div class="staff-role-chip"><div class="dot"></div>ASB Staff</div>
     <nav class="nav-links">
+      <a href="LandingPageStaffFE.html">Dashboard</a>
       <a href="LandingPageStaffFE.html">Foundational</a>
       <a href="LandingPageStaffWP.html" class="active">Work Plans</a>
       <a href="LandingPageStaffRP.html">Reflection Papers</a>
@@ -173,6 +174,7 @@
       <div class="field">
         <label for="type-filter">Submission Type</label>
         <select class="filter-select" id="type-filter" onchange="handleTypeChange()">
+          <option value="LandingPageStaffFEAll.html">All</option>
           <option value="LandingPageStaffFE.html">Foundational experience</option>
           <option value="LandingPageStaffWP.html" selected>Work plan</option>
           <option value="LandingPageStaffRP.html">Reflection paper</option>
@@ -217,7 +219,7 @@
         <h2>Work Plan Table</h2>
         <p>Mentor, current status, CPA Canada ID, submitted date, and work plan dates.</p>
       </div>
-      <div class="type-pill">WP <span class="count" id="visible-count">0</span></div>
+
     </div>
     <div class="table-wrap">
       <table>
@@ -244,8 +246,7 @@
 const submissions = [
   { id: 201, name: 'Marcus Leblanc', cpaId: 'CPA-2024-00387', imisId: 'IMIS-903441', mentor: 'Monica Turner', status: 'pending-review', statusLabel: 'Pending review', submittedDate: '2026-04-16', startDate: '2026-05-01', endDate: '2027-04-30', avatar: 'ML', avatarClass: 'av-teal' },
   { id: 202, name: 'Priya Sharma', cpaId: 'CPA-2024-00403', imisId: 'IMIS-907102', mentor: 'Raymond Ho', status: 'in-review', statusLabel: 'In review', submittedDate: '2026-04-11', startDate: '2026-06-01', endDate: '2027-05-31', avatar: 'PS', avatarClass: 'av-blue' },
-  { id: 203, name: 'Fatima Al-Hassan', cpaId: 'CPA-2024-00479', imisId: 'IMIS-910208', mentor: 'Aman Chawla', status: 'pending-review', statusLabel: 'Pending review', submittedDate: '2026-04-10', startDate: '2026-07-01', endDate: '2027-06-30', avatar: 'FA', avatarClass: 'av-amber' },
-  { id: 204, name: 'James Whitfield', cpaId: 'CPA-2023-00318', imisId: 'IMIS-899314', mentor: 'Chloe Martin', status: 'approved', statusLabel: 'Approved', submittedDate: '2026-04-04', startDate: '2026-03-01', endDate: '2027-02-28', avatar: 'JW', avatarClass: 'av-green' }
+  { id: 203, name: 'Fatima Al-Hassan', cpaId: 'CPA-2024-00479', imisId: 'IMIS-910208', mentor: 'Aman Chawla', status: 'pending-review', statusLabel: 'Pending review', submittedDate: '2026-04-10', startDate: '2026-07-01', endDate: '2027-06-30', avatar: 'FA', avatarClass: 'av-amber' }
 ];
 
 const statusBadgeClass = {

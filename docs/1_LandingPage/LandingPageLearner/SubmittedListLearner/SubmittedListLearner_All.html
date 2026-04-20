@@ -104,7 +104,7 @@
     <table>
       <thead><tr><th>Status</th><th>Type</th><th>Submitted date</th><th>Details</th></tr></thead>
       <tbody id="submission-table-body">
-        <tr data-type="foundational"><td><span class="status-badge badge-approved"><span class="dot"></span>Approved</span></td><td><span class="type-pill"><span class="type-dot dot-found"></span>Foundational experience</span></td><td>Apr 19, 2026</td><td><a class="view-btn" href="../../../2_FE/ViewFELearner/ViewFESubmitted.html">View</a></td></tr>
+        <tr data-type="foundational" id="foundational-row"><td id="foundational-status"><span class="status-badge badge-approved"><span class="dot"></span>Approved</span></td><td><span class="type-pill"><span class="type-dot dot-found"></span>Foundational experience</span></td><td id="foundational-date">Apr 19, 2026</td><td><a class="view-btn" href="../../../2_FE/ViewFELearner/ViewFESubmitted.html">View</a></td></tr>
         <tr data-type="workplan"><td><span class="status-badge badge-pending"><span class="dot"></span>Pending mentor review</span></td><td><span class="type-pill"><span class="type-dot dot-work"></span>Practical experience (work plan)</span></td><td>Apr 19, 2026</td><td><a class="view-btn" href="../../../index.html">View</a></td></tr>
         <tr data-type="reflection"><td><span class="status-badge badge-draft"><span class="dot"></span>Draft</span></td><td><span class="type-pill"><span class="type-dot dot-reflect"></span>Reflection paper</span></td><td>Apr 19, 2026</td><td><a class="view-btn" href="../../../index.html">View</a></td></tr>
       </tbody>
@@ -130,6 +130,23 @@ function applyFilter(filter) {
 filterTabs.forEach((tab) => {
   tab.addEventListener('click', () => applyFilter(tab.dataset.filter));
 });
+
+const draft = JSON.parse(localStorage.getItem('feDraft') || 'null');
+const staffReview = JSON.parse(localStorage.getItem('feStaffReview:101') || 'null');
+if (draft && draft.submittedAt) {
+  document.getElementById('foundational-date').textContent = new Date(draft.submittedAt).toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' });
+}
+if (staffReview) {
+  const rowStatus = document.getElementById('foundational-status');
+  const statusMarkup = staffReview.status === 'approved'
+    ? '<span class="status-badge badge-approved"><span class="dot"></span>Approved</span>'
+    : staffReview.status === 'partially-approved'
+      ? '<span class="status-badge badge-approved"><span class="dot"></span>Partially Approved</span>'
+    : staffReview.status === 'rejected'
+      ? '<span class="status-badge" style="background:#FDECEA;color:#C0392B"><span class="dot" style="background:#C0392B"></span>Rejected</span>'
+      : '<span class="status-badge badge-pending"><span class="dot"></span>Pending ASB Staff Review</span>';
+  rowStatus.innerHTML = statusMarkup;
+}
 </script>
 </body>
 </html>

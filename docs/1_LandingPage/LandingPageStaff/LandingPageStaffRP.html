@@ -131,6 +131,7 @@
   <div class="topbar-right">
     <div class="staff-role-chip"><div class="dot"></div>ASB Staff</div>
     <nav class="nav-links">
+      <a href="LandingPageStaffFE.html">Dashboard</a>
       <a href="LandingPageStaffFE.html">Foundational</a>
       <a href="LandingPageStaffWP.html">Work Plans</a>
       <a href="LandingPageStaffRP.html" class="active">Reflection Papers</a>
@@ -172,6 +173,7 @@
       <div class="field">
         <label for="type-filter">Submission Type</label>
         <select class="filter-select" id="type-filter" onchange="handleTypeChange()">
+          <option value="LandingPageStaffFEAll.html">All</option>
           <option value="LandingPageStaffFE.html">Foundational experience</option>
           <option value="LandingPageStaffWP.html">Work plan</option>
           <option value="LandingPageStaffRP.html" selected>Reflection paper</option>
@@ -216,7 +218,7 @@
         <h2>Reflection Paper Table</h2>
         <p>Mentor, CPA Canada ID, current status, and submitted date.</p>
       </div>
-      <div class="type-pill">RP <span class="count" id="visible-count">0</span></div>
+
     </div>
     <div class="table-wrap">
       <table>
@@ -240,8 +242,7 @@
 <script>
 const submissions = [
   { id: 301, name: 'Nina Patel', cpaId: 'CPA-2024-00488', imisId: 'IMIS-911020', mentor: 'Sandra Wu', status: 'pending-review', statusLabel: 'Pending review', submittedDate: '2026-04-14', avatar: 'NP', avatarClass: 'av-purple' },
-  { id: 302, name: 'Owen Chen', cpaId: 'CPA-2024-00497', imisId: 'IMIS-911418', mentor: 'Carla Mendes', status: 'in-review', statusLabel: 'In review', submittedDate: '2026-04-09', avatar: 'OC', avatarClass: 'av-blue' },
-  { id: 303, name: 'Emily Ross', cpaId: 'CPA-2023-00341', imisId: 'IMIS-902774', mentor: 'Jordan Bell', status: 'approved', statusLabel: 'Approved', submittedDate: '2026-04-05', avatar: 'ER', avatarClass: 'av-green' }
+  { id: 302, name: 'Owen Chen', cpaId: 'CPA-2024-00497', imisId: 'IMIS-911418', mentor: 'Carla Mendes', status: 'in-review', statusLabel: 'In review', submittedDate: '2026-04-09', avatar: 'OC', avatarClass: 'av-blue' }
 ];
 
 const statusBadgeClass = {

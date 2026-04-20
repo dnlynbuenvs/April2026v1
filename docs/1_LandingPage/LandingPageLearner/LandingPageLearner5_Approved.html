@@ -38,7 +38,7 @@
   <div class="progress-grid">
     <div class="prog-card"><div class="prog-card-title">Foundational experience</div><span class="status-badge"><span class="dot"></span>Approved</span><div class="prog-card-value" style="margin-top:10px">100%</div><div class="prog-card-sub">Your FE submission has been approved and completed</div></div>
     <div class="prog-card"><div class="prog-card-title">Practical experience</div><span class="status-badge" style="background:#EBF3FF;color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Ready to start</span><div class="prog-card-value" style="margin-top:10px">0%</div><div class="prog-card-sub">Your work plan is now unlocked and ready to begin</div></div>
-    <div class="prog-card"><div class="prog-card-title">Overall work experience</div><span class="status-badge"><span class="dot"></span>Approved milestone</span><div class="prog-card-value" style="margin-top:10px">8 <span style="font-size:16px;font-family:'DM Sans',sans-serif;color:#A8A49E">/ 24 mos</span></div><div class="prog-card-sub">Your approved FE duration now counts toward total experience</div></div>
+    <div class="prog-card"><div class="prog-card-title">Overall work experience</div><span class="status-badge"><span class="dot"></span>Approved milestone</span><div class="prog-card-value" id="overall-months" style="margin-top:10px">8 <span style="font-size:16px;font-family:'DM Sans',sans-serif;color:#A8A49E">/ 24 mos</span></div><div class="prog-card-sub" id="overall-copy">Your approved FE duration now counts toward total experience</div></div>
   </div>
   <div class="cards">
     <div class="card"><span class="status-badge"><span class="dot"></span>Approved</span><h2>Foundational experience approved</h2><p>Your foundational experience has been reviewed and approved by ASB Staff. You can still open the approved item to review what was submitted, and you can now continue to the next step in your learner journey.</p><div class="btn-row"><a class="btn btn-dark" href="../../2_FE/ViewFELearner/ViewFESubmitted.html">View approved item</a><a class="btn btn-light" href="LandingPageLearner5_Approved.html">Go to work plan</a></div></div>
@@ -48,8 +48,18 @@
 </main>
 <script>
 const draft = JSON.parse(localStorage.getItem('feDraft') || 'null');
+const staffReview = JSON.parse(localStorage.getItem('feStaffReview:101') || 'null');
 if (draft && draft.rows && draft.rows.length) {
   if (draft.submittedAt) document.getElementById('submitted-date').textContent = new Date(draft.submittedAt).toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' });
+}
+if (staffReview && Array.isArray(staffReview.experiences)) {
+  const approvedMonths = staffReview.experiences
+    .filter((exp) => exp.reviewStatus === 'approved')
+    .reduce((sum, exp) => sum + (Number(exp.monthsValue) || 0), 0);
+  if (approvedMonths > 0) {
+    document.getElementById('overall-months').innerHTML = `${approvedMonths.toFixed(1)} <span style="font-size:16px;font-family:'DM Sans',sans-serif;color:#A8A49E">/ 24 mos</span>`;
+    document.getElementById('overall-copy').textContent = 'Only approved FE experience is counted toward total experience on the learner dashboard.';
+  }
 }
 </script>
 </body>

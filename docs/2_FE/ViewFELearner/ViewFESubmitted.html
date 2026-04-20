@@ -9,6 +9,9 @@
   :root { --navy:#0B1F3A; --blue:#1B5EA8; --green:#2D7A4E; --green-light:#E8F5EE; --sand:#F7F5F2; --white:#FFF; --gray-200:#E4E2DE; --gray-400:#A8A49E; --gray-600:#6B6760; --gray-800:#2E2C2A; --shadow-sm:0 1px 3px rgba(11,31,58,.07),0 1px 2px rgba(11,31,58,.05); --shadow-md:0 4px 12px rgba(11,31,58,.08),0 2px 4px rgba(11,31,58,.05); --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:20px; }
   *{box-sizing:border-box;margin:0;padding:0} body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--gray-800)} .topbar{background:var(--navy);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}.logo-group,.topbar-right{display:flex;align-items:center;gap:10px}.logo-mark{width:36px;height:36px;background:var(--white);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center}.logo-text{display:flex;flex-direction:column;line-height:1.1}.logo-text .brand{font-size:13px;font-weight:600;color:var(--white)}.logo-text .sub{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase}.role-dropdown{position:relative}.role-trigger{list-style:none;display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:var(--white);font-size:13px;font-weight:600;cursor:pointer}.role-trigger::-webkit-details-marker{display:none}.role-label{display:inline-flex;align-items:center;justify-content:center;min-width:72px}.role-caret{font-size:11px;color:rgba(255,255,255,.72)}.role-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:180px;padding:8px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:0 12px 30px rgba(11,31,58,.14);display:flex;flex-direction:column;gap:4px;z-index:20}.role-option{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;color:var(--gray-800);text-decoration:none}.role-option:hover{background:var(--gray-100)}.role-option.active{background:#EBF3FF;color:var(--blue);font-weight:600}
   .page{max-width:1140px;margin:0 auto;padding:2rem 2rem 4rem}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--gray-200)} .hero h1{font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:var(--navy);margin-bottom:4px}.hero p{font-size:14px;color:var(--gray-600)} .status-badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:600;background:var(--green-light);color:var(--green)} .status-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+  .badge-pending{background:#FEF3E8;color:#E76F1A}.badge-pending .dot{background:#E76F1A}
+  .badge-approved{background:var(--green-light);color:var(--green)} .badge-approved .dot{background:var(--green)}
+  .badge-rejected{background:#FDECEA;color:#C0392B}.badge-rejected .dot{background:#C0392B}
   .layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(300px,.95fr);gap:1.25rem}.card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-xl);box-shadow:var(--shadow-md)} .card-head{padding:1.2rem 1.25rem;border-bottom:1px solid var(--gray-200)} .card-head h2{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;color:var(--navy)} .card-body{padding:1.25rem}
   .entry{border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:1rem;background:linear-gradient(180deg, rgba(247,245,242,.45), rgba(255,255,255,1));margin-bottom:1rem}.entry:last-child{margin-bottom:0}.entry-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:.85rem}
   .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px}.item{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:12px}.label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-400);margin-bottom:5px}.value{font-size:14px;line-height:1.45}
@@ -20,24 +23,50 @@
 <body>
 <header class="topbar"><div class="logo-group"><div class="logo-mark"><svg width="24" height="20" viewBox="0 0 24 20" fill="none"><path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/><path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="logo-text"><span class="brand">CPA Canada</span><span class="sub">Chartered Professional Accountants</span></div></div><div class="topbar-right"><details class="role-dropdown"><summary class="role-trigger"><span class="role-label">Learner</span><span class="role-caret">▼</span></summary><div class="role-menu"><a class="role-option active" href="../../index.html">Learner</a><a class="role-option" href="../../1_LandingPage/LandingPageMentor/LandingPageMentor1_ZeroProgress.html">Mentor</a><a class="role-option" href="../../1_LandingPage/LandingPageStaff/LandingPageStaffFE.html">ASB Staff</a></div></details></div></header>
 <main class="page">
-  <div class="hero"><div><h1>Submitted Foundational Experience</h1><p>Read-only view of the FE item that was submitted for ASB Staff review.</p></div><div class="status-badge"><span class="dot"></span>Pending ASB Staff Review</div></div>
+  <div class="hero"><div><h1>Submitted Foundational Experience</h1><p>Read-only view of the FE item that was submitted for ASB Staff review.</p></div><div class="status-badge badge-pending" id="hero-status"><span class="dot"></span>Pending ASB Staff Review</div></div>
   <div class="layout">
     <div class="card"><div class="card-head"><h2>Submitted Details</h2></div><div class="card-body" id="submitted-container"></div></div>
-    <aside class="card side"><h3>Submission Summary</h3><p>This item is now locked for learner editing while staff review is in progress.</p><div class="summary"><div class="label">Current status</div><div class="summary-value">Pending ASB Staff Review</div></div><div class="summary"><div class="label">Submitted at</div><div class="summary-value" id="submitted-at">Recorded on submission</div></div><div class="actions"><a class="btn btn-light" href="../ClaimFELearner/ClaimFEMessages/ClaimFESubmitted.html">Back</a><a class="btn btn-dark" href="../../1_LandingPage/LandingPageLearner/LandingPageLearner3_PendingStaffReview.html">Return to dashboard</a></div></aside>
+    <aside class="card side"><h3>Submission Summary</h3><p id="summary-copy">This item is now locked for learner editing while staff review is in progress.</p><div class="summary"><div class="label">Current status</div><div class="summary-value" id="summary-status">Pending ASB Staff Review</div></div><div class="summary"><div class="label">Approved duration</div><div class="summary-value" id="approved-duration">0.0 months</div></div><div class="summary"><div class="label">Submitted at</div><div class="summary-value" id="submitted-at">Recorded on submission</div></div><div class="actions"><a class="btn btn-light" href="../ClaimFELearner/ClaimFEMessages/ClaimFESubmitted.html">Back</a><a class="btn btn-dark" href="../../1_LandingPage/LandingPageLearner/LandingPageLearner3_PendingStaffReview.html">Return to dashboard</a></div></aside>
   </div>
 </main>
 <script>
 const draft = JSON.parse(localStorage.getItem('feDraft') || 'null');
+const staffReview = JSON.parse(localStorage.getItem('feStaffReview:101') || 'null');
 const container = document.getElementById('submitted-container');
+const statusMap = {
+  pending: { label: 'Pending ASB Staff Review', badgeClass: 'badge-pending', copy: 'This item is now locked for learner editing while staff review is in progress.' },
+  approved: { label: 'Approved', badgeClass: 'badge-approved', copy: 'Approved FE experience now counts toward your total recorded experience.' },
+  'partially-approved': { label: 'Partially Approved', badgeClass: 'badge-approved', copy: 'Your FE review is partially approved. Only approved experience counts toward your total recorded experience.' },
+  rejected: { label: 'Rejected', badgeClass: 'badge-rejected', copy: 'Rejected FE experience does not count toward your approved experience total.' }
+};
 if (!draft || !draft.rows || !draft.rows.length) {
   container.innerHTML = '<p style="font-size:14px;color:#6B6760">No submitted FE item was found yet.</p>';
 } else {
   if (draft.submittedAt) {
     document.getElementById('submitted-at').textContent = new Date(draft.submittedAt).toLocaleString();
   }
-  container.innerHTML = draft.rows.map((row, index) => `
+  const approvedMonths = staffReview && Array.isArray(staffReview.experiences)
+    ? staffReview.experiences
+        .filter((exp) => exp.reviewStatus === 'approved')
+        .reduce((sum, exp) => sum + (Number(exp.monthsValue) || 0), 0)
+    : 0;
+  const overallStatus = staffReview && statusMap[staffReview.status] ? staffReview.status : 'pending';
+  const overallCfg = statusMap[overallStatus];
+  document.getElementById('hero-status').className = `status-badge ${overallCfg.badgeClass}`;
+  document.getElementById('hero-status').innerHTML = `<span class="dot"></span>${overallCfg.label}`;
+  document.getElementById('summary-status').textContent = overallCfg.label;
+  document.getElementById('summary-copy').textContent = overallCfg.copy;
+  document.getElementById('approved-duration').textContent = `${approvedMonths.toFixed(1)} months`;
+  container.innerHTML = draft.rows.map((row, index) => {
+    const reviewRow = staffReview && Array.isArray(staffReview.experiences) ? staffReview.experiences[index] : null;
+    const rowCfg = reviewRow && statusMap[reviewRow.reviewStatus] ? statusMap[reviewRow.reviewStatus] : statusMap.pending;
+    const counted = reviewRow && reviewRow.reviewStatus === 'approved'
+      ? `${(Number(reviewRow.monthsValue) || 0).toFixed(1)} months counted`
+      : '0.0 months counted';
+    return `
     <section class="entry">
       <div class="entry-title">Experience ${index + 1}</div>
+      <div style="margin-bottom:.85rem"><span class="status-badge ${rowCfg.badgeClass}"><span class="dot"></span>${rowCfg.label}</span></div>
       <div class="grid">
         <div class="item"><div class="label">Employer</div><div class="value">${row.employer || '-'}</div></div>
         <div class="item"><div class="label">Supporting Document</div><div class="value">${row.documents || '-'}</div></div>
@@ -45,9 +74,11 @@ if (!draft || !draft.rows || !draft.rows.length) {
         <div class="item"><div class="label">End Date</div><div class="value">${row.endDate || '-'}</div></div>
         <div class="item"><div class="label">Leave Days</div><div class="value">${row.leaves ?? 0} day(s)</div></div>
         <div class="item"><div class="label">Leave Note</div><div class="value">${row.leaveNote || '-'}</div></div>
+        <div class="item"><div class="label">Counted Duration</div><div class="value">${counted}</div></div>
       </div>
     </section>
-  `).join('');
+  `;
+  }).join('');
 }
 </script>
 </body>
