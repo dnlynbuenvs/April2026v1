@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - Learner Dashboard Reflection Paper</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#0B1F3A; --blue:#1B5EA8; --accent:#2A9D8F; --green:#2D7A4E; --green-light:#E8F5EE; --sand:#F7F5F2; --white:#FFF; --gray-100:#F2F1EF; --gray-200:#E4E2DE; --gray-400:#A8A49E; --gray-600:#6B6760; --gray-800:#2E2C2A; --shadow-sm:0 1px 3px rgba(11,31,58,.07),0 1px 2px rgba(11,31,58,.05); --radius-sm:6px; --radius-md:10px; --radius-lg:16px; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--gray-800)}
+  .topbar{background:var(--navy);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+  .logo-group,.topbar-right{display:flex;align-items:center;gap:10px}
+  .logo-mark{width:36px;height:36px;background:var(--white);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center}
+  .logo-text{display:flex;flex-direction:column;line-height:1.1}
+  .logo-text .brand{font-size:13px;font-weight:600;color:var(--white)}
+  .logo-text .sub{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase}
+  .nav-links{display:flex}
+  .nav-links a{color:rgba(255,255,255,.55);font-size:14px;text-decoration:none;padding:8px 16px;border-radius:var(--radius-sm)}
+  .nav-links a.active,.nav-links a:hover{color:var(--white);background:rgba(255,255,255,.08)}
+  .role-dropdown{position:relative}
+  .role-trigger{list-style:none;display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:var(--white);font-size:13px;font-weight:600;cursor:pointer}
+  .role-trigger::-webkit-details-marker{display:none}
+  .role-label{display:inline-flex;align-items:center;justify-content:center;min-width:72px}
+  .role-caret{font-size:11px;color:rgba(255,255,255,.72)}
+  .role-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:180px;padding:8px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:0 12px 30px rgba(11,31,58,.14);display:flex;flex-direction:column;gap:4px;z-index:20}
+  .role-option{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;color:var(--gray-800);text-decoration:none}
+  .role-option:hover{background:var(--gray-100)}
+  .role-option.active{background:#EBF3FF;color:var(--blue);font-weight:600}
+  .page{max-width:1100px;margin:0 auto;padding:2rem 2rem 4rem}
+  .hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--gray-200)}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:var(--navy);margin-bottom:4px}
+  .hero p{font-size:14px;color:var(--gray-600)}
+  .hero-badge{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:10px 16px;box-shadow:var(--shadow-sm);font-size:13px;color:var(--gray-600)}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.75rem}
+  .journey{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--gray-200);margin-bottom:1.75rem}
+  .journey-step{background:var(--white);padding:1.2rem;display:flex;flex-direction:column;gap:10px}
+  .journey-step.completed{background:var(--green-light)}
+  .journey-step.active{background:var(--navy)}
+  .journey-step.locked{background:var(--gray-100)}
+  .step-num{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .journey-step.completed .step-num{color:var(--green)}
+  .journey-step.active .step-num{color:rgba(255,255,255,.55)}
+  .journey-step.locked .step-num{color:var(--gray-400)}
+  .step-label{font-size:14px;font-weight:600;line-height:1.3}
+  .journey-step.completed .step-label{color:var(--green)}
+  .journey-step.active .step-label{color:var(--white)}
+  .journey-step.locked .step-label{color:var(--gray-600)}
+  .step-copy{font-size:12px;line-height:1.45}
+  .journey-step.completed .step-copy{color:var(--green)}
+  .journey-step.active .step-copy{color:rgba(255,255,255,.72)}
+  .journey-step.locked .step-copy{color:var(--gray-400)}
+  .step-action{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;text-decoration:none;width:fit-content}
+  .btn-primary{background:var(--white);color:var(--navy)}
+  .progress-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.75rem}
+  .prog-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:1.2rem;box-shadow:var(--shadow-sm)}
+  .prog-card-title{font-size:12px;font-weight:500;color:var(--gray-600);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .prog-card-value{font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);line-height:1}
+  .prog-card-sub{font-size:12px;color:var(--gray-400);margin-top:4px}
+  .cards{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:1.5rem}
+  .card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:1.25rem;box-shadow:var(--shadow-sm)}
+  .status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px;background:var(--green-light);color:var(--green)}
+  .status-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .card h2{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;color:var(--navy);margin:10px 0 6px}
+  .card p{font-size:13px;color:var(--gray-600);line-height:1.6}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;text-decoration:none}
+  .btn-dark{background:var(--navy);color:var(--white)}
+  .btn-light{background:var(--white);color:var(--navy);border:1px solid var(--gray-200)}
+  .table-wrap{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
+  table{width:100%;border-collapse:collapse}
+  thead th{padding:11px 18px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);background:var(--sand);border-bottom:1px solid var(--gray-200)}
+  tbody td{padding:14px 18px;font-size:13px;border-bottom:1px solid var(--gray-100)}
+  tbody tr:last-child td{border-bottom:none}
+  .type-pill{display:inline-flex;align-items:center;gap:7px}
+  .type-dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+  .view-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--blue);border:1px solid rgba(27,94,168,.3);background:#EBF3FF;border-radius:var(--radius-sm);padding:5px 11px;text-decoration:none}
+  @media(max-width:900px){.journey,.progress-grid,.cards{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}.nav-links{display:none}.page{padding:1.25rem 1rem 3rem}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="logo-group"><div class="logo-mark"><svg width="24" height="20" viewBox="0 0 24 20" fill="none"><path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/><path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="logo-text"><span class="brand">CPA Canada</span><span class="sub">Chartered Professional Accountants</span></div></div><div class="topbar-right"><nav class="nav-links"><a href="LandingPageLearner6_RP.html" class="active">Dashboard</a><a href="LandingPageLearner6_RP.html">Work Plans</a><a href="LandingPageLearner6_RP.html">Reports</a></nav><details class="role-dropdown"><summary class="role-trigger"><span class="role-label">Learner</span><span class="role-caret">v</span></summary><div class="role-menu"><a class="role-option active" href="../../index.html">Learner</a><a class="role-option" href="../LandingPageMentor/LandingPageMentor1_ZeroProgress.html">Mentor</a><a class="role-option" href="../LandingPageStaff/LandingPageStaffFE.html">ASB Staff</a></div></details></div></header>
+<main class="page">
+  <div class="hero"><div><h1>Welcome back, Dannie</h1><p>Your work plan is complete, and the reflection paper step is now ready for you to begin.</p></div><div class="hero-badge"><div style="width:8px;height:8px;border-radius:50%;background:#1B5EA8"></div><span>Step <strong>3 of 4</strong> - Reflection paper</span></div></div>
+  <div class="section-label">Your journey</div>
+  <div class="journey">
+    <div class="journey-step completed"><div class="step-num">Step 01</div><div class="step-label">Foundational Experience</div><div class="step-copy">Approved by ASB Staff and now fully complete.</div></div>
+    <div class="journey-step completed"><div class="step-num">Step 02</div><div class="step-label">Create Work Plan</div><div class="step-copy">Your work plan has been completed and moved forward in the journey.</div></div>
+    <div class="journey-step active"><div class="step-num">Step 03</div><div class="step-label">Reflection Paper</div><div class="step-copy">Your reflection paper is now the active learner task.</div><a class="step-action btn-primary" href="../../4_RP/CreateRP.html">Create reflection paper</a></div>
+    <div class="journey-step locked"><div class="step-num">Step 04</div><div class="step-label">Register for Final Module</div><div class="step-copy">All prior steps must be complete first.</div></div>
+  </div>
+  <div class="section-label">Progress overview</div>
+  <div class="progress-grid">
+    <div class="prog-card"><div class="prog-card-title">Foundational experience</div><span class="status-badge"><span class="dot"></span>Approved</span><div class="prog-card-value" style="margin-top:10px">100%</div><div class="prog-card-sub">Your FE submission has been approved and completed</div></div>
+    <div class="prog-card"><div class="prog-card-title">Practical experience</div><span class="status-badge"><span class="dot"></span>Completed</span><div class="prog-card-value" style="margin-top:10px">100%</div><div class="prog-card-sub">Your work plan has been completed and submitted</div></div>
+    <div class="prog-card"><div class="prog-card-title">Reflection paper</div><span class="status-badge" style="background:#EBF3FF;color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Ready to start</span><div class="prog-card-value" style="margin-top:10px">0%</div><div class="prog-card-sub">Attach and submit your reflection paper next</div></div>
+  </div>
+  <div class="cards">
+    <div class="card"><span class="status-badge" style="background:#EBF3FF;color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Active step</span><h2>Reflection paper is ready</h2><p>Your work plan stage is complete, so you can now move ahead with the reflection paper submission. This next step only requires attaching the reflection paper document in the learner flow.</p><div class="btn-row"><a class="btn btn-dark" href="../../4_RP/CreateRP.html">Create reflection paper</a><a class="btn btn-light" href="SubmittedListLearner/SubmittedListLearner_All.html">View submitted items</a></div></div>
+  </div>
+  <div class="section-label">Experience history</div>
+  <div class="table-wrap"><table><thead><tr><th>Status</th><th>Type</th><th>Submitted date</th><th></th></tr></thead><tbody><tr><td><span class="status-badge"><span class="dot"></span>Approved</span></td><td><span class="type-pill"><span class="type-dot"></span>Foundational experience</span></td><td id="submitted-date">Apr 19, 2026</td><td><a class="view-btn" href="SubmittedListLearner/SubmittedListLearner_All.html">View</a></td></tr><tr><td><span class="status-badge"><span class="dot"></span>Completed</span></td><td><span class="type-pill"><span class="type-dot" style="background:var(--accent)"></span>Practical experience (work plan)</span></td><td>Apr 20, 2026</td><td><a class="view-btn" href="SubmittedListLearner/SubmittedListLearner_All.html">View</a></td></tr><tr><td><span class="status-badge" style="background:#EBF3FF;color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Ready to start</span></td><td><span class="type-pill"><span class="type-dot" style="background:#C28A2E"></span>Reflection paper</span></td><td>-</td><td><a class="view-btn" href="../../4_RP/CreateRP.html">View</a></td></tr></tbody></table></div>
+</main>
+<script>
+const draft = JSON.parse(localStorage.getItem('feDraft') || 'null');
+if (draft && draft.rows && draft.rows.length && draft.submittedAt) {
+  document.getElementById('submitted-date').textContent = new Date(draft.submittedAt).toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' });
+}
+</script>
+</body>
+</html>

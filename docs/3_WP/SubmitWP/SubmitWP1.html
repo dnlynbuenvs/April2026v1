@@ -42,7 +42,7 @@ function loadSimple(){['org-name','org-address','org-site','competency','mentor-
 function updateMetrics(){document.getElementById('leave-total').textContent=`${state['leaves']||0} days`;document.getElementById('potential-pe').textContent=`${monthsBetween(state['wp-start'],state['wp-end'])} mos`}
 document.getElementById('add-job-btn').addEventListener('click',()=>{state.jobs.push({positionTitle:'',professionalStart:'',employmentStart:'',expectedCompletion:'',docName:'No document attached yet'});persist();renderJobs();bindInputs()})
 document.getElementById('doc-1').addEventListener('click',()=>{state.doc1Name='Work plan supporting document.pdf';persist();document.getElementById('doc-1-name').textContent=state.doc1Name})
-document.getElementById('save-btn').addEventListener('click',()=>{state.status='draft';persist();alert('Work plan draft saved.')})
+document.getElementById('save-btn').addEventListener('click',()=>{state.status='draft';persist();sessionStorage.setItem('wpReturnPage','SubmitWP1.html');window.location.href='SubmitWPMessageDraft.html'})
 document.getElementById('next-btn').addEventListener('click',(e)=>{persist()})
 renderJobs();bindInputs();loadSimple();updateMetrics();
 </script>

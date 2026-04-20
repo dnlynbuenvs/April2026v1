@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - Work Plan Submitted</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0B1F3A;--blue:#2349F5;--green:#2D7A4E;--white:#FFF;--gray-100:#F2F1EF;--gray-200:#E4E2DE;--gray-400:#A8A49E;--gray-600:#6B6760;--gray-800:#2E2C2A;--shadow-md:0 12px 32px rgba(11,31,58,.08),0 2px 6px rgba(11,31,58,.05);--radius-sm:6px;--radius-md:10px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:linear-gradient(180deg,#FBFBFE 0%,#F4F6FB 55%,#F7F5F2 100%);color:var(--gray-800)}
+  .topbar{background:var(--navy);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+  .logo-group,.topbar-right,.nav-links,.btn-row{display:flex;align-items:center;gap:10px}
+  .logo-mark{width:36px;height:36px;background:#fff;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center}
+  .logo-text{display:flex;flex-direction:column;line-height:1.1}
+  .brand{font-size:13px;font-weight:600;color:#fff}
+  .sub{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase}
+  .nav-links a{color:rgba(255,255,255,.55);font-size:14px;text-decoration:none;padding:8px 16px;border-radius:var(--radius-sm)}
+  .nav-links a.active,.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .role-dropdown{position:relative}
+  .role-trigger{list-style:none;display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;font-size:13px;font-weight:600;cursor:pointer}
+  .role-trigger::-webkit-details-marker{display:none}
+  .role-label{display:inline-flex;align-items:center;justify-content:center;min-width:72px}
+  .role-caret{font-size:11px;color:rgba(255,255,255,.72)}
+  .role-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:180px;padding:8px;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:0 12px 30px rgba(11,31,58,.14);display:flex;flex-direction:column;gap:4px;z-index:20}
+  .role-option{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;color:var(--gray-800);text-decoration:none}
+  .role-option:hover{background:var(--gray-100)}
+  .role-option.active{background:#EBF3FF;color:var(--blue);font-weight:600}
+  .page{max-width:900px;margin:0 auto;padding:3rem 1.25rem 4rem}
+  .card{background:#fff;border:1px solid rgba(228,226,222,.9);border-radius:28px;box-shadow:var(--shadow-md);padding:2rem}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#E8F5EE;color:var(--green);font-size:12px;font-weight:700;margin-bottom:1rem}
+  h1{font-family:'DM Serif Display',serif;font-size:40px;font-weight:400;color:var(--navy);margin-bottom:.75rem}
+  p{font-size:15px;line-height:1.7;color:var(--gray-600);max-width:680px}
+  .summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:1.5rem 0}
+  .summary-item{border:1px solid var(--gray-200);border-radius:18px;padding:14px;background:linear-gradient(180deg,#fff,#FBFBFD)}
+  .label{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px}
+  .value{font-size:15px;color:var(--navy);font-weight:600}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:700;text-decoration:none;border:none;cursor:pointer}
+  .btn-light{background:#fff;color:var(--navy);border:1px solid var(--gray-200)}
+  .btn-dark{background:var(--navy);color:#fff}
+  .btn-soft{background:#EBF3FF;color:var(--blue)}
+  @media(max-width:760px){.topbar{padding:0 1rem}.nav-links{display:none}.summary{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="logo-group"><div class="logo-mark"><svg width="24" height="20" viewBox="0 0 24 20" fill="none"><path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/><path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="logo-text"><span class="brand">CPA Canada</span><span class="sub">Chartered Professional Accountants</span></div></div><div class="topbar-right"><nav class="nav-links"><a href="../../1_LandingPage/LandingPageLearner/LandingPageLearner5_Approved.html">Dashboard</a><a href="SubmitWP1.html" class="active">Work Plans</a><a href="../../1_LandingPage/LandingPageLearner/SubmittedListLearner/SubmittedListLearner_All.html">Reports</a></nav><details class="role-dropdown"><summary class="role-trigger"><span class="role-label">Learner</span><span class="role-caret">v</span></summary><div class="role-menu"><a class="role-option active" href="../../index.html">Learner</a><a class="role-option" href="../../1_LandingPage/LandingPageMentor/LandingPageMentor1_ZeroProgress.html">Mentor</a><a class="role-option" href="../../1_LandingPage/LandingPageStaff/LandingPageStaffFEAll.html">ASB Staff</a></div></details></div></header>
+<main class="page">
+  <section class="card">
+    <div class="eyebrow">Work Plan Submitted</div>
+    <h1>Your work plan has been sent for mentor review.</h1>
+    <p>The work plan is now read-only and its status has moved to pending mentor review. Your mentor can now access the submission as part of the review workflow.</p>
+    <div class="summary">
+      <div class="summary-item"><div class="label">Current Status</div><div class="value">Pending mentor review</div></div>
+      <div class="summary-item"><div class="label">Submission Date</div><div class="value" id="submitted-date">Today</div></div>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-dark" href="../../1_LandingPage/LandingPageLearner/SubmittedListLearner/SubmittedListLearner_All.html">View Submitted Items</a>
+      <a class="btn btn-soft" href="../../1_LandingPage/LandingPageLearner/LandingPageLearner5_Approved.html">Go to Dashboard</a>
+      <a class="btn btn-light" href="SubmitWP5.html">Back to Review</a>
+    </div>
+  </section>
+</main>
+<script>
+const state=JSON.parse(localStorage.getItem('wpDraft')||'{}');
+if(state.submittedAt){
+  document.getElementById('submitted-date').textContent=new Date(state.submittedAt).toLocaleDateString('en-CA',{year:'numeric',month:'short',day:'numeric'});
+}
+</script>
+</body>
+</html>
