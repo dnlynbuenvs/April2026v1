@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - Learner Submitted Items</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0B1F3A; --blue:#1B5EA8; --accent:#2A9D8F; --amber:#E76F1A; --green:#2D7A4E;
+    --sand:#F7F5F2; --white:#FFFFFF; --gray-100:#F2F1EF; --gray-200:#E4E2DE; --gray-400:#A8A49E;
+    --gray-600:#6B6760; --gray-800:#2E2C2A; --shadow-sm:0 1px 3px rgba(11,31,58,0.07),0 1px 2px rgba(11,31,58,0.05);
+    --radius-sm:6px; --radius-md:10px; --radius-lg:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--gray-800);min-height:100vh}
+  .topbar{background:var(--navy);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+  .logo-group{display:flex;align-items:center;gap:10px}
+  .logo-mark{width:36px;height:36px;background:var(--white);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center}
+  .logo-text{display:flex;flex-direction:column;line-height:1.1}
+  .logo-text .brand{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.04em}
+  .logo-text .sub{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.02em;text-transform:uppercase}
+  .nav-links{display:flex;align-items:center}
+  .nav-links a{color:rgba(255,255,255,.55);font-size:14px;text-decoration:none;padding:8px 16px;border-radius:var(--radius-sm)}
+  .nav-links a.active,.nav-links a:hover{color:var(--white);background:rgba(255,255,255,.08)}
+  .topbar-right{display:flex;align-items:center;gap:12px}
+  .role-dropdown{position:relative}
+  .role-trigger{list-style:none;display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:var(--white);font-size:13px;font-weight:600;cursor:pointer}
+  .role-trigger::-webkit-details-marker{display:none}
+  .role-label{display:inline-flex;align-items:center;justify-content:center;min-width:72px}
+  .role-caret{font-size:11px;color:rgba(255,255,255,.72)}
+  .role-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:180px;padding:8px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:0 12px 30px rgba(11,31,58,.14);display:flex;flex-direction:column;gap:4px;z-index:20}
+  .role-option{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;color:var(--gray-800);text-decoration:none}
+  .role-option:hover{background:var(--gray-100)}
+  .role-option.active{background:#EBF3FF;color:var(--blue);font-weight:600}
+  .page{max-width:1100px;margin:0 auto;padding:2rem 2rem 4rem}
+  .hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--gray-200)}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:var(--navy);margin-bottom:4px}
+  .hero p{font-size:14px;color:var(--gray-600)}
+  .hero-badge{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:10px 16px;box-shadow:var(--shadow-sm);font-size:13px;color:var(--gray-600)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.75rem}
+  .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.75rem}
+  .summary-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:1.2rem;box-shadow:var(--shadow-sm)}
+  .summary-card strong{display:block;font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;color:var(--navy);margin-top:8px}
+  .summary-card span{font-size:12px;color:var(--gray-600);text-transform:uppercase;letter-spacing:.05em}
+  .filter-shell{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:14px 16px;box-shadow:var(--shadow-sm);margin-bottom:1rem}
+  .filter-copy{display:flex;flex-direction:column;gap:4px}
+  .filter-copy strong{font-size:14px;color:var(--navy)}
+  .filter-copy span{font-size:12px;color:var(--gray-600)}
+  .filter-tabs{display:flex;flex-wrap:wrap;gap:8px}
+  .filter-tab{appearance:none;border:1px solid var(--gray-200);background:var(--sand);color:var(--gray-600);border-radius:999px;padding:10px 14px;font:600 12px 'DM Sans',sans-serif;cursor:pointer;transition:all .15s ease}
+  .filter-tab:hover{border-color:rgba(27,94,168,.3);color:var(--blue);background:#F7FAFF}
+  .filter-tab.active{background:#EBF3FF;color:var(--blue);border-color:rgba(27,94,168,.28)}
+  .results-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:.75rem}
+  .results-count{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-400)}
+  .table-wrap{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
+  table{width:100%;border-collapse:collapse}
+  thead th{padding:11px 18px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);background:var(--sand);border-bottom:1px solid var(--gray-200)}
+  tbody td{padding:14px 18px;font-size:13px;border-bottom:1px solid var(--gray-100)}
+  tbody tr:last-child td{border-bottom:none}
+  .status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px}
+  .status-badge .dot{width:6px;height:6px}
+  .badge-approved{background:#E8F5EE;color:var(--green)} .badge-approved .dot{background:var(--green)}
+  .badge-pending{background:#FEF3E8;color:var(--amber)} .badge-pending .dot{background:var(--amber)}
+  .badge-draft{background:#EBF3FF;color:var(--blue)} .badge-draft .dot{background:var(--blue)}
+  .type-pill{display:inline-flex;align-items:center;gap:7px}
+  .type-dot{width:8px;height:8px;border-radius:50%}
+  .dot-found{background:var(--blue)} .dot-work{background:var(--accent)} .dot-reflect{background:var(--amber)}
+  .view-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--blue);border:1px solid rgba(27,94,168,.3);background:#EBF3FF;border-radius:var(--radius-sm);padding:5px 11px;text-decoration:none}
+  @media(max-width:900px){.summary-grid{grid-template-columns:1fr}.filter-shell,.results-meta{flex-direction:column;align-items:flex-start}.hero{flex-direction:column;align-items:flex-start}.nav-links{display:none}.page{padding:1.25rem 1rem 3rem}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo-group"><div class="logo-mark"><svg width="24" height="20" viewBox="0 0 24 20" fill="none"><path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/><path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="logo-text"><span class="brand">CPA Canada</span><span class="sub">Chartered Professional Accountants</span></div></div>
+  <div class="topbar-right"><nav class="nav-links"><a href="../../../index.html" class="active">Dashboard</a><a href="../../../index.html">Work Plans</a><a href="../../../index.html">Reports</a></nav><details class="role-dropdown"><summary class="role-trigger"><span class="role-label">Learner</span><span class="role-caret">▼</span></summary><div class="role-menu"><a class="role-option active" href="../../../index.html">Learner</a><a class="role-option" href="../../LandingPageMentor/LandingPageMentor1_ZeroProgress.html">Mentor</a><a class="role-option" href="../../LandingPageStaff/LandingPageStaffFE.html">ASB Staff</a></div></details></div>
+</header>
+<main class="page">
+  <div class="hero"><div><h1>Submitted items</h1><p>Review the learner's foundational experience, work plan, and reflection paper records in one place.</p></div><div class="hero-badge"><div class="dot"></div><span>All submitted items</span></div></div>
+  <div class="section-label">Overview</div>
+  <div class="summary-grid">
+    <div class="summary-card"><span>Foundational experience</span><strong>1</strong></div>
+    <div class="summary-card"><span>Work plans</span><strong>1</strong></div>
+    <div class="summary-card"><span>Reflection papers</span><strong>1</strong></div>
+  </div>
+  <div class="filter-shell">
+    <div class="filter-copy">
+      <strong>Filter by submission type</strong>
+      <span>Choose a category to focus on the records you want to review.</span>
+    </div>
+    <div class="filter-tabs" role="tablist" aria-label="Submission type filter">
+      <button class="filter-tab active" type="button" data-filter="all">All items</button>
+      <button class="filter-tab" type="button" data-filter="foundational">Foundational experience</button>
+      <button class="filter-tab" type="button" data-filter="workplan">Work plan</button>
+      <button class="filter-tab" type="button" data-filter="reflection">Reflection paper</button>
+    </div>
+  </div>
+  <div class="section-label">Submission history</div>
+  <div class="results-meta">
+    <div class="results-count" id="results-count">Showing 3 items</div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Status</th><th>Type</th><th>Submitted date</th><th>Details</th></tr></thead>
+      <tbody id="submission-table-body">
+        <tr data-type="foundational"><td><span class="status-badge badge-approved"><span class="dot"></span>Approved</span></td><td><span class="type-pill"><span class="type-dot dot-found"></span>Foundational experience</span></td><td>Apr 19, 2026</td><td><a class="view-btn" href="../../../2_FE/ViewFELearner/ViewFESubmitted.html">View</a></td></tr>
+        <tr data-type="workplan"><td><span class="status-badge badge-pending"><span class="dot"></span>Pending mentor review</span></td><td><span class="type-pill"><span class="type-dot dot-work"></span>Practical experience (work plan)</span></td><td>Apr 19, 2026</td><td><a class="view-btn" href="../../../index.html">View</a></td></tr>
+        <tr data-type="reflection"><td><span class="status-badge badge-draft"><span class="dot"></span>Draft</span></td><td><span class="type-pill"><span class="type-dot dot-reflect"></span>Reflection paper</span></td><td>Apr 19, 2026</td><td><a class="view-btn" href="../../../index.html">View</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+<script>
+const filterTabs = Array.from(document.querySelectorAll('.filter-tab'));
+const rows = Array.from(document.querySelectorAll('#submission-table-body tr'));
+const resultsCount = document.getElementById('results-count');
+
+function applyFilter(filter) {
+  let visible = 0;
+  rows.forEach((row) => {
+    const matches = filter === 'all' || row.dataset.type === filter;
+    row.style.display = matches ? '' : 'none';
+    if (matches) visible += 1;
+  });
+  resultsCount.textContent = `Showing ${visible} item${visible === 1 ? '' : 's'}`;
+  filterTabs.forEach((tab) => tab.classList.toggle('active', tab.dataset.filter === filter));
+}
+
+filterTabs.forEach((tab) => {
+  tab.addEventListener('click', () => applyFilter(tab.dataset.filter));
+});
+</script>
+</body>
+</html>
