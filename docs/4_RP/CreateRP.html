@@ -120,7 +120,7 @@
 </main>
 <script>
 const storageKey='rpDraft';
-const state=JSON.parse(localStorage.getItem(storageKey)||'{"fileName":"","status":"not-submitted"}');
+const state=JSON.parse(localStorage.getItem(storageKey)||'{"fileName":"","status":"not-submitted","submittedAt":""}');
 const fileNameEl=document.getElementById('rp-file-name');
 const summaryFileEl=document.getElementById('rp-summary-file');
 const statusEl=document.getElementById('rp-status');
@@ -157,6 +157,7 @@ document.getElementById('submit-btn').addEventListener('click',()=>{
     state.fileName='Reflection paper submission.pdf';
   }
   state.status='submitted';
+  state.submittedAt=new Date().toISOString();
   persist();
   render();
   submittedMessageEl.classList.add('show');
