@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - FE Draft Saved</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --accent: #2A9D8F;
+    --accent-light: #E8F7F5;
+    --sand: #F7F5F2;
+    --white: #FFFFFF;
+    --gray-200: #E4E2DE;
+    --gray-600: #6B6760;
+    --gray-800: #2E2C2A;
+    --shadow-md: 0 4px 12px rgba(11,31,58,0.08), 0 2px 4px rgba(11,31,58,0.05);
+    --radius-md: 10px;
+    --radius-xl: 22px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--gray-800); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .message-card {
+    width: min(640px, 100%);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: 2rem;
+    text-align: center;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  h1 { font-family: 'DM Serif Display', serif; font-size: 36px; font-weight: 400; color: var(--navy); margin-bottom: 0.75rem; }
+  p { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-secondary { background: var(--white); color: var(--navy); border: 1px solid var(--gray-200); }
+</style>
+</head>
+<body>
+  <main class="message-card">
+    <div class="badge">Draft Saved</div>
+    <h1>Your FE draft has been saved</h1>
+    <p>Your incomplete foundational experience entry remains editable and can still be viewed by ASB Staff as a draft. Return whenever you are ready to continue or review the draft before submission.</p>
+    <div class="actions">
+      <a class="btn btn-secondary" href="../ClaimFE_S2_EnterDetails.html">Continue editing</a>
+      <a class="btn btn-primary" href="../../LandingPageLearner/LandingPageLearner2_Draft.html">Review draft</a>
+    </div>
+  </main>
+</body>
+</html>

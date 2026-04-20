@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - Claim Foundational Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --blue: #1B5EA8;
+    --accent: #2A9D8F;
+    --accent-light: #E8F7F5;
+    --amber: #E76F1A;
+    --amber-light: #FEF3E8;
+    --sand: #F7F5F2;
+    --white: #FFFFFF;
+    --gray-100: #F2F1EF;
+    --gray-200: #E4E2DE;
+    --gray-400: #A8A49E;
+    --gray-600: #6B6760;
+    --gray-700: #4C4842;
+    --gray-800: #2E2C2A;
+    --green: #2D7A4E;
+    --green-light: #E8F5EE;
+    --red: #C0392B;
+    --shadow-sm: 0 1px 3px rgba(11,31,58,0.07), 0 1px 2px rgba(11,31,58,0.05);
+    --shadow-md: 0 4px 12px rgba(11,31,58,0.08), 0 2px 4px rgba(11,31,58,0.05);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 22px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--gray-800); min-height: 100vh; }
+  .topbar {
+    background: var(--navy);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-group { display: flex; align-items: center; gap: 10px; }
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-text .brand { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.04em; }
+  .logo-text .sub { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 0; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+  }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+  .nav-links a.active { color: var(--white); font-weight: 500; background: rgba(255,255,255,0.12); }
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.7);
+  }
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .page { max-width: 1120px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+  .hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .hero p { font-size: 14px; color: var(--gray-600); max-width: 580px; }
+  .hero-badge {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    box-shadow: var(--shadow-sm);
+    font-size: 13px;
+    color: var(--gray-600);
+  }
+  .journey {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--gray-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    margin-bottom: 1.5rem;
+  }
+  .journey-step {
+    background: var(--white);
+    padding: 1rem 1.2rem;
+    min-height: 112px;
+  }
+  .journey-step.active { background: var(--navy); }
+  .journey-step.locked { background: var(--gray-100); }
+  .step-num { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  .journey-step.active .step-num { color: rgba(255,255,255,0.55); }
+  .journey-step.locked .step-num { color: var(--gray-400); }
+  .journey-step:not(.active):not(.locked) .step-num { color: var(--blue); }
+  .step-title { font-size: 15px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; }
+  .journey-step.active .step-title { color: var(--white); }
+  .journey-step.locked .step-title { color: var(--gray-600); }
+  .journey-step:not(.active):not(.locked) .step-title { color: var(--navy); }
+  .step-copy { font-size: 12px; line-height: 1.45; }
+  .journey-step.active .step-copy { color: rgba(255,255,255,0.72); }
+  .journey-step.locked .step-copy { color: var(--gray-400); }
+  .journey-step:not(.active):not(.locked) .step-copy { color: var(--gray-600); }
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  .decision-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .decision-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .flag-yes { background: var(--accent-light); color: var(--accent); }
+  .flag-no { background: var(--amber-light); color: var(--amber); }
+  .decision-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--navy);
+  }
+  .decision-card p { font-size: 14px; color: var(--gray-600); }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radius-md);
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-secondary { background: var(--white); color: var(--navy); border-color: var(--gray-200); }
+  .info-card {
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, rgba(27,94,168,0.08), rgba(42,157,143,0.08));
+    border: 1px solid rgba(27,94,168,0.12);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem;
+    font-size: 13px;
+    color: var(--gray-700);
+  }
+  @media (max-width: 820px) {
+    .nav-links { display: none; }
+    .page { padding: 1.25rem 1rem 3rem; }
+    .hero { flex-direction: column; align-items: flex-start; }
+    .journey { grid-template-columns: 1fr; }
+    .decision-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo-group">
+    <div class="logo-mark">
+      <svg width="24" height="20" viewBox="0 0 24 20" fill="none">
+        <path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/>
+        <path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="brand">CPA Canada</span>
+      <span class="sub">Chartered Professional Accountants</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <nav class="nav-links">
+      <a href="../LandingPage/LandingPageLearner.html">Dashboard</a>
+      <a href="#" class="active">Foundational Experience</a>
+      <a href="../LandingPage/LandingPageLearner.html">Work Plan</a>
+      <a href="../LandingPage/LandingPageLearner.html">Reflections</a>
+    </nav>
+    <div class="icon-btn">?</div>
+    <div class="avatar">DN</div>
+  </div>
+</header>
+
+<main class="page">
+  <section class="hero">
+    <div>
+      <h1>Claim Foundational Experience</h1>
+      <p>Start by telling us whether you want to claim foundational experience. Your decision will be stored and visible to ASB Staff.</p>
+    </div>
+    <div class="hero-badge">Step 1 of 3</div>
+  </section>
+
+  <section class="journey">
+    <div class="journey-step active">
+      <div class="step-num">Step 1</div>
+      <div class="step-title">Choose Yes or No</div>
+      <div class="step-copy">Declare whether you are claiming foundational experience.</div>
+    </div>
+    <div class="journey-step locked">
+      <div class="step-num">Step 2</div>
+      <div class="step-title">Enter Details</div>
+      <div class="step-copy">Add employers, dates, documents, and leave information.</div>
+    </div>
+    <div class="journey-step locked">
+      <div class="step-num">Step 3</div>
+      <div class="step-title">Review and Submit</div>
+      <div class="step-copy">Check your draft and submit it for ASB Staff review.</div>
+    </div>
+  </section>
+
+  <section class="decision-grid">
+    <article class="decision-card">
+      <div class="decision-flag flag-yes">Yes, claim it</div>
+      <h2>Claim foundational experience</h2>
+      <p>Select this if you want to submit prior foundational experience for ASB Staff review and sign-off.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="setDecision('claim')">Yes, continue</button>
+      </div>
+    </article>
+
+    <article class="decision-card">
+      <div class="decision-flag flag-no">No, decline it</div>
+      <h2>Do not claim foundational experience</h2>
+      <p>Select this if you do not intend to submit foundational experience and want to move directly toward your work plan.</p>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="setDecision('decline')">No, skip foundational experience</button>
+      </div>
+    </article>
+  </section>
+
+  <section class="info-card">
+    If you return later, your most recent decision can still be referenced by ASB Staff. You can only submit foundational experience after all required details are complete.
+  </section>
+</main>
+
+<script>
+function setDecision(choice) {
+  localStorage.setItem('feDecision', choice);
+
+  if (choice === 'claim') {
+    localStorage.setItem('learnerFeStatus', 'not-submitted');
+    localStorage.setItem('feDraft', JSON.stringify({
+      decision: 'claim',
+      status: 'Not submitted',
+      rows: [{
+        id: Date.now(),
+        employer: '',
+        startDate: '',
+        endDate: '',
+        documents: '',
+        leaves: 0,
+        leaveNote: ''
+      }]
+    }));
+    window.location.href = 'ClaimFE_S2_EnterDetails.html';
+    return;
+  }
+
+  localStorage.setItem('learnerFeStatus', 'not-claimed');
+  localStorage.setItem('feDraft', JSON.stringify({
+    decision: 'decline',
+    status: 'Not claimed',
+    rows: []
+  }));
+  window.location.href = 'ClaimFEMessages/ClaimFENotClaimed.html';
+}
+</script>
+</body>
+</html>

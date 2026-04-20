@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - FE Submitted</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --green: #2D7A4E;
+    --green-light: #E8F5EE;
+    --sand: #F7F5F2;
+    --white: #FFFFFF;
+    --gray-200: #E4E2DE;
+    --gray-600: #6B6760;
+    --gray-800: #2E2C2A;
+    --shadow-md: 0 4px 12px rgba(11,31,58,0.08), 0 2px 4px rgba(11,31,58,0.05);
+    --radius-md: 10px;
+    --radius-xl: 22px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--gray-800); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .message-card {
+    width: min(680px, 100%);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: 2rem;
+    text-align: center;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-light);
+    color: var(--green);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  h1 { font-family: 'DM Serif Display', serif; font-size: 36px; font-weight: 400; color: var(--navy); margin-bottom: 0.75rem; }
+  p { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+  .status-box {
+    margin-top: 1rem;
+    background: #F8FBF9;
+    border: 1px solid #D2ECDD;
+    border-radius: var(--radius-md);
+    padding: 12px;
+    font-size: 13px;
+    color: var(--gray-800);
+  }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-secondary { background: var(--white); color: var(--navy); border: 1px solid var(--gray-200); }
+</style>
+</head>
+<body>
+  <main class="message-card">
+    <div class="badge">Submitted</div>
+    <h1>Your foundational experience has been submitted</h1>
+    <p>The status has changed from <strong>Draft</strong> to <strong>Pending ASB Staff Review</strong>. Your FE entry is now read-only and has moved into the ASB Staff review workflow for final sign-off.</p>
+    <div class="status-box">Supporting documents, employer details, dates, and leave deductions are now stored with your submission and can be referenced by ASB Staff.</div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="../ViewFE/ViewFESubmitted.html">View submitted item</a>
+      <a class="btn btn-primary" href="../../LandingPageLearner/LandingPageLearner3_PendingStaffReview.html">Return to dashboard</a>
+    </div>
+  </main>
+</body>
+</html>
