@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPA - Register for Final Module</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0B1F3A;--blue:#2349F5;--blue-soft:#EBF3FF;--green:#2D7A4E;--green-soft:#E8F5EE;--gray-100:#F2F1EF;--gray-200:#E4E2DE;--gray-400:#A8A49E;--gray-600:#6B6760;--gray-800:#2E2C2A;--sand:#F7F5F2;--white:#FFF;--shadow-sm:0 1px 3px rgba(11,31,58,.07),0 1px 2px rgba(11,31,58,.05);--shadow-md:0 12px 32px rgba(11,31,58,.08),0 2px 6px rgba(11,31,58,.05);--radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:22px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:linear-gradient(180deg,#FBFBFE 0%,#F4F6FB 55%,#F7F5F2 100%);color:var(--gray-800)}
+  .topbar{background:var(--navy);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+  .logo-group,.topbar-right,.nav-links,.btn-row{display:flex;align-items:center;gap:10px}
+  .logo-mark{width:36px;height:36px;background:#fff;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center}
+  .logo-text{display:flex;flex-direction:column;line-height:1.1}
+  .brand{font-size:13px;font-weight:600;color:#fff}
+  .sub{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase}
+  .nav-links a{color:rgba(255,255,255,.55);font-size:14px;text-decoration:none;padding:8px 16px;border-radius:var(--radius-sm)}
+  .nav-links a.active,.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .role-dropdown{position:relative}
+  .role-trigger{list-style:none;display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;font-size:13px;font-weight:600;cursor:pointer}
+  .role-trigger::-webkit-details-marker{display:none}
+  .role-label{display:inline-flex;align-items:center;justify-content:center;min-width:72px}
+  .role-caret{font-size:11px;color:rgba(255,255,255,.72)}
+  .role-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:180px;padding:8px;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:0 12px 30px rgba(11,31,58,.14);display:flex;flex-direction:column;gap:4px;z-index:20}
+  .role-option{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;color:var(--gray-800);text-decoration:none}
+  .role-option:hover{background:var(--gray-100)}
+  .role-option.active{background:#EBF3FF;color:var(--blue);font-weight:600}
+  .page{max-width:1120px;margin:0 auto;padding:2rem 1.25rem 4rem}
+  .hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.75rem}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:42px;font-weight:400;color:var(--navy);margin-bottom:8px}
+  .hero p{font-size:14px;line-height:1.65;color:var(--gray-600);max-width:760px}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--green-soft);border:1px solid rgba(45,122,78,.14);border-radius:999px;font-size:12px;font-weight:700;color:var(--green)}
+  .layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.9fr);gap:1.25rem}
+  .stack{display:grid;gap:1rem}
+  .card{background:#fff;border:1px solid rgba(228,226,222,.9);border-radius:var(--radius-xl);box-shadow:var(--shadow-md)}
+  .card-head{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-200)}
+  .card-head h2{font-family:'DM Serif Display',serif;font-size:30px;font-weight:400;color:var(--navy)}
+  .card-head p{margin-top:6px;font-size:13px;color:var(--gray-600)}
+  .card-body{padding:1.3rem}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field.span-2{grid-column:1 / -1}
+  .field label{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-400)}
+  .input,.select,.textarea{width:100%;min-height:48px;border:1px solid var(--gray-200);border-radius:var(--radius-md);background:#fff;padding:12px 14px;font:14px 'DM Sans',sans-serif;color:var(--gray-800);box-shadow:var(--shadow-sm)}
+  .textarea{min-height:96px;resize:vertical}
+  .status-box,.summary-item,.check-item{border:1px solid var(--gray-200);border-radius:18px;padding:14px;background:linear-gradient(180deg,#fff,#FBFBFD)}
+  .label{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px}
+  .value{font-size:15px;color:var(--navy);font-weight:600;line-height:1.55}
+  .status-pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:700;background:var(--green-soft);color:var(--green)}
+  .status-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .note{padding:12px 14px;background:#F8FBFF;border:1px solid rgba(35,73,245,.15);border-radius:14px;font-size:13px;line-height:1.6;color:var(--gray-600)}
+  .check-list{display:grid;gap:12px}
+  .check-item{display:flex;gap:12px;align-items:flex-start}
+  .check-icon{width:22px;height:22px;border-radius:999px;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+  .check-copy strong{display:block;color:var(--navy);font-size:14px;margin-bottom:4px}
+  .check-copy span{font-size:13px;color:var(--gray-600);line-height:1.55}
+  .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:1.5rem}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border:none;border-radius:var(--radius-md);font-size:13px;font-weight:700;text-decoration:none;cursor:pointer}
+  .btn-light{background:#fff;color:var(--navy);border:1px solid var(--gray-200)}
+  .btn-soft{background:var(--blue-soft);color:var(--blue)}
+  .btn-dark{background:var(--navy);color:#fff}
+  .confirmation{display:none;margin-top:14px;padding:13px 14px;border-radius:14px;font-size:13px;line-height:1.55}
+  .confirmation.show{display:block}
+  .confirmation.submitted{background:var(--green-soft);color:var(--green)}
+  @media(max-width:980px){.layout,.grid{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}}
+  @media(max-width:760px){.topbar{padding:0 1rem}.nav-links{display:none}.page{padding:1.25rem 1rem 3rem}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo-group"><div class="logo-mark"><svg width="24" height="20" viewBox="0 0 24 20" fill="none"><path d="M2 10C2 5.58 5.58 2 10 2h4c4.42 0 8 3.58 8 8s-3.58 8-8 8h-4C5.58 18 2 14.42 2 10z" fill="#0B1F3A" opacity="0.12"/><path d="M7 10.5l3 3 7-7" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="logo-text"><span class="brand">CPA Canada</span><span class="sub">Chartered Professional Accountants</span></div></div>
+  <div class="topbar-right"><nav class="nav-links"><a href="../1_LandingPage/LandingPageLearner/LandingPageLearner7_FinalModule.html">Dashboard</a><a href="../3_WP/SubmitWP/SubmitWP1.html">Work Plans</a><a href="../1_LandingPage/LandingPageLearner/SubmittedListLearner/SubmittedListLearner_All.html" class="active">Reports</a></nav><details class="role-dropdown"><summary class="role-trigger"><span class="role-label">Learner</span><span class="role-caret">v</span></summary><div class="role-menu"><a class="role-option active" href="../index.html">Learner</a><a class="role-option" href="../1_LandingPage/LandingPageMentor/LandingPageMentor1_ZeroProgress.html">Mentor</a><a class="role-option" href="../1_LandingPage/LandingPageStaff/LandingPageStaffFEAll.html">ASB Staff</a></div></details></div>
+</header>
+<main class="page">
+  <div class="hero">
+    <div><h1>Register for Final Module</h1><p>Complete the final learner registration step after foundational experience, work plan, and reflection paper are all complete. This wireframe captures the registration intent and learner confirmation details.</p></div>
+    <div class="hero-badge">Final Step Ready</div>
+  </div>
+
+  <div class="layout">
+    <div class="stack">
+      <section class="card">
+        <div class="card-head">
+          <h2>Registration Details</h2>
+          <p>Review your eligibility and enter the final module registration details below.</p>
+        </div>
+        <div class="card-body">
+          <div class="grid">
+            <div class="field">
+              <label for="final-intake">Preferred Intake</label>
+              <select class="select" id="final-intake">
+                <option value="">Select intake</option>
+                <option>Spring 2026</option>
+                <option>Summer 2026</option>
+                <option>Fall 2026</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="final-location">Delivery Preference</label>
+              <select class="select" id="final-location">
+                <option value="">Select delivery preference</option>
+                <option>Online</option>
+                <option>In-person</option>
+                <option>Hybrid</option>
+              </select>
+            </div>
+            <div class="field span-2">
+              <label for="final-confirmation">Learner Confirmation</label>
+              <textarea class="textarea" id="final-confirmation" placeholder="Enter a short confirmation that you are ready to proceed with final module registration."></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <div class="note">This learner view is a wireframe. Submitting here simply records the registration state and keeps the experience flow visually complete.</div>
+            <div class="btn-row">
+              <a class="btn btn-light" href="../1_LandingPage/LandingPageLearner/LandingPageLearner7_FinalModule.html">Back to Dashboard</a>
+              <button class="btn btn-dark" id="submit-btn" type="button">Submit Registration</button>
+            </div>
+          </div>
+          <div class="confirmation submitted" id="submitted-message">Final module registration submitted successfully.</div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="stack">
+      <section class="card">
+        <div class="card-head">
+          <h2>Eligibility Summary</h2>
+          <p>All prerequisites are complete for this learner journey.</p>
+        </div>
+        <div class="card-body">
+          <div class="status-box">
+            <div class="label">Current Status</div>
+            <div class="value"><span class="status-pill" id="final-status"><span class="dot"></span>Ready to register</span></div>
+          </div>
+          <div class="summary-item" style="margin-top:12px">
+            <div class="label">Overall Completion</div>
+            <div class="value">100% complete</div>
+          </div>
+          <div class="summary-item" style="margin-top:12px">
+            <div class="label">Experience Counted</div>
+            <div class="value">24 / 24 months</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Checklist</h2>
+          <p>Final module registration becomes available once these learner milestones are complete.</p>
+        </div>
+        <div class="card-body">
+          <div class="check-list">
+            <div class="check-item"><div class="check-icon">✓</div><div class="check-copy"><strong>Foundational Experience Approved</strong><span>Foundational experience has been reviewed and approved by ASB Staff.</span></div></div>
+            <div class="check-item"><div class="check-icon">✓</div><div class="check-copy"><strong>Work Plan Completed</strong><span>The learner work plan has been completed and submitted through the review flow.</span></div></div>
+            <div class="check-item"><div class="check-icon">✓</div><div class="check-copy"><strong>Reflection Paper Completed</strong><span>The reflection paper has been submitted and approved through the mentor and staff review flow.</span></div></div>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+</main>
+<script>
+const storageKey='finalModuleRegistration';
+const state=JSON.parse(localStorage.getItem(storageKey)||'{"status":"ready","intake":"","delivery":"","confirmation":"","submittedAt":""}');
+const intakeEl=document.getElementById('final-intake');
+const deliveryEl=document.getElementById('final-location');
+const confirmationEl=document.getElementById('final-confirmation');
+const statusEl=document.getElementById('final-status');
+const submittedMessageEl=document.getElementById('submitted-message');
+function persist(){localStorage.setItem(storageKey,JSON.stringify(state))}
+function render(){
+  intakeEl.value=state.intake||'';
+  deliveryEl.value=state.delivery||'';
+  confirmationEl.value=state.confirmation||'';
+  statusEl.innerHTML=state.status==='submitted'
+    ? '<span class="dot"></span>Registered'
+    : '<span class="dot"></span>Ready to register';
+}
+intakeEl.addEventListener('change',e=>{state.intake=e.target.value;persist()});
+deliveryEl.addEventListener('change',e=>{state.delivery=e.target.value;persist()});
+confirmationEl.addEventListener('input',e=>{state.confirmation=e.target.value;persist()});
+document.getElementById('submit-btn').addEventListener('click',()=>{
+  state.status='submitted';
+  state.submittedAt=new Date().toISOString();
+  persist();
+  render();
+  submittedMessageEl.classList.add('show');
+});
+render();
+</script>
+</body>
+</html>

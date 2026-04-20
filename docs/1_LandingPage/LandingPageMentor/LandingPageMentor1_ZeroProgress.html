@@ -436,8 +436,8 @@
   <!-- HERO -->
   <div class="hero">
     <div>
-      <h1>Assigned Work Plans</h1>
-      <p>Review, approve, and manage your learners' submitted work plans</p>
+      <h1>Assigned Submissions</h1>
+      <p>Review, approve, and manage your learners' submitted work plans and reflection papers</p>
     </div>
     <div class="summary-chips">
       <div class="summary-chip">
@@ -462,7 +462,7 @@
   <!-- PRIORITY ALERT -->
   <div class="priority-alert" id="priority-alert">
     <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    <span><strong>3 work plans</strong> are pending your review and require action.</span>
+    <span><strong>3 submissions</strong> are pending your review and require action.</span>
   </div>
 
   <!-- ACTION BAR -->
@@ -484,30 +484,26 @@
       <button class="filter-tab active" data-filter="all" onclick="setFilter('all', this)">
         All <span class="tab-count" id="count-all">8</span>
       </button>
-      <button class="filter-tab" data-filter="pending-review" onclick="setFilter('pending-review', this)">
-        Pending review <span class="tab-count" id="count-pending-review">0</span>
+      <button class="filter-tab" data-filter="work-plan" onclick="setFilter('work-plan', this)">
+        Work plan <span class="tab-count" id="count-work-plan">0</span>
       </button>
-      <button class="filter-tab" data-filter="rejected" onclick="setFilter('rejected', this)">
-        Rejected <span class="tab-count" id="count-rejected">0</span>
-      </button>
-      <button class="filter-tab" data-filter="completed" onclick="setFilter('completed', this)">
-        Completed <span class="tab-count" id="count-completed">0</span>
+      <button class="filter-tab" data-filter="reflection-paper" onclick="setFilter('reflection-paper', this)">
+        Reflection paper <span class="tab-count" id="count-reflection-paper">0</span>
       </button>
     </div>
   </div>
 
   <!-- TABLE -->
-  <div class="section-label">Work plan list</div>
+  <div class="section-label">Submission list</div>
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
           <th onclick="sortBy('name')">Learner <span class="sort-icon">↕</span></th>
+          <th>Submission type</th>
           <th>CPA Canada ID</th>
           <th onclick="sortBy('status')">Status <span class="sort-icon">↕</span></th>
           <th onclick="sortBy('submitted')">Submitted date <span class="sort-icon">↕</span></th>
-          <th onclick="sortBy('start')">Start date <span class="sort-icon">↕</span></th>
-          <th onclick="sortBy('end')">End date <span class="sort-icon">↕</span></th>
           <th></th>
         </tr>
       </thead>
@@ -515,7 +511,7 @@
       </tbody>
     </table>
     <div class="empty-state" id="empty-state" style="display:none">
-      No work plans match your current filters.
+      No submissions match your current filters.
     </div>
   </div>
 
@@ -523,14 +519,14 @@
 
 <script>
 const workPlans = [
-  { id: 1, name: 'Dannie Nguyen',    cpaId: 'CPA-2024-00412', avatar: 'DN', avatarClass: 'av-blue',   status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-10', start: '2024-09-01', end: '2026-08-31', actionRequired: true },
-  { id: 2, name: 'Marcus Leblanc',   cpaId: 'CPA-2024-00387', avatar: 'ML', avatarClass: 'av-teal',   status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-14', start: '2024-10-01', end: '2026-09-30', actionRequired: true },
-  { id: 3, name: 'Aisha Okonkwo',    cpaId: 'CPA-2023-00291', avatar: 'AO', avatarClass: 'av-purple', status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-18', start: '2023-11-15', end: '2025-11-14', actionRequired: true },
-  { id: 4, name: 'Sofia Reyes',      cpaId: 'CPA-2024-00451', avatar: 'SR', avatarClass: 'av-amber',  status: 'rejected',       statusLabel: 'Rejected',       submitted: '2025-02-20', start: '2024-11-01', end: '2026-10-31', actionRequired: false },
-  { id: 5, name: 'James Whitfield',  cpaId: 'CPA-2023-00318', avatar: 'JW', avatarClass: 'av-green',  status: 'completed',      statusLabel: 'Completed',      submitted: '2025-01-22', start: '2023-08-01', end: '2025-07-31', actionRequired: false },
-  { id: 6, name: 'Priya Sharma',     cpaId: 'CPA-2024-00403', avatar: 'PS', avatarClass: 'av-blue',   status: 'rejected',       statusLabel: 'Rejected',       submitted: '2025-01-10', start: '2024-08-15', end: '2026-08-14', actionRequired: false },
-  { id: 7, name: 'Liam Tremblay',    cpaId: 'CPA-2023-00355', avatar: 'LT', avatarClass: 'av-teal',   status: 'completed',      statusLabel: 'Completed',      submitted: '2025-02-05', start: '2023-07-01', end: '2025-06-30', actionRequired: false },
-  { id: 8, name: 'Fatima Al-Hassan', cpaId: 'CPA-2024-00479', avatar: 'FA', avatarClass: 'av-amber',  status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-20', start: '2024-12-01', end: '2026-11-30', actionRequired: true },
+  { id: 1, type: 'work-plan', typeLabel: 'Work plan', typeColor: 'var(--accent)', name: 'Dannie Nguyen',    cpaId: 'CPA-2024-00412', avatar: 'DN', avatarClass: 'av-blue',   status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-10', actionRequired: true },
+  { id: 2, type: 'work-plan', typeLabel: 'Work plan', typeColor: 'var(--accent)', name: 'Marcus Leblanc',   cpaId: 'CPA-2024-00387', avatar: 'ML', avatarClass: 'av-teal',   status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-03-14', actionRequired: true },
+  { id: 3, type: 'work-plan', typeLabel: 'Work plan', typeColor: 'var(--accent)', name: 'Aisha Okonkwo',    cpaId: 'CPA-2023-00291', avatar: 'AO', avatarClass: 'av-purple', status: 'completed',      statusLabel: 'Completed',      submitted: '2025-03-18', actionRequired: false },
+  { id: 4, type: 'work-plan', typeLabel: 'Work plan', typeColor: 'var(--accent)', name: 'Sofia Reyes',      cpaId: 'CPA-2024-00451', avatar: 'SR', avatarClass: 'av-amber',  status: 'rejected',       statusLabel: 'Rejected',       submitted: '2025-02-20', actionRequired: false },
+  { id: 5, type: 'reflection-paper', typeLabel: 'Reflection paper', typeColor: 'var(--purple)', name: 'James Whitfield',  cpaId: 'CPA-2023-00318', avatar: 'JW', avatarClass: 'av-green',  status: 'pending-review', statusLabel: 'Pending review', submitted: '2025-01-22', actionRequired: true },
+  { id: 6, type: 'reflection-paper', typeLabel: 'Reflection paper', typeColor: 'var(--purple)', name: 'Priya Sharma',     cpaId: 'CPA-2024-00403', avatar: 'PS', avatarClass: 'av-blue',   status: 'rejected',       statusLabel: 'Rejected',       submitted: '2025-01-10', actionRequired: false },
+  { id: 7, type: 'reflection-paper', typeLabel: 'Reflection paper', typeColor: 'var(--purple)', name: 'Liam Tremblay',    cpaId: 'CPA-2023-00355', avatar: 'LT', avatarClass: 'av-teal',   status: 'completed',      statusLabel: 'Completed',      submitted: '2025-02-05', actionRequired: false },
+  { id: 8, type: 'reflection-paper', typeLabel: 'Reflection paper', typeColor: 'var(--purple)', name: 'Fatima Al-Hassan', cpaId: 'CPA-2024-00479', avatar: 'FA', avatarClass: 'av-amber',  status: 'completed',      statusLabel: 'Completed',      submitted: '2025-03-20', actionRequired: false },
 ];
 
 let currentFilter = 'all';
@@ -545,16 +541,15 @@ const statusBadgeClass = {
 
 function updateCounts(data) {
   document.getElementById('count-all').textContent = workPlans.length;
-  document.getElementById('count-pending-review').textContent = workPlans.filter(w => w.status === 'pending-review').length;
-  document.getElementById('count-rejected').textContent = workPlans.filter(w => w.status === 'rejected').length;
-  document.getElementById('count-completed').textContent = workPlans.filter(w => w.status === 'completed').length;
+  document.getElementById('count-work-plan').textContent = workPlans.filter(w => w.type === 'work-plan').length;
+  document.getElementById('count-reflection-paper').textContent = workPlans.filter(w => w.type === 'reflection-paper').length;
   const actionCount = workPlans.filter(w => w.actionRequired).length;
   document.getElementById('action-count').textContent = actionCount;
   document.getElementById('approved-count').textContent = workPlans.filter(w => w.status === 'completed').length;
   const alert = document.getElementById('priority-alert');
   if (actionCount > 0) {
     alert.style.display = 'flex';
-    alert.querySelector('strong').textContent = actionCount + ' work plan' + (actionCount > 1 ? 's' : '');
+    alert.querySelector('strong').textContent = actionCount + ' submission' + (actionCount > 1 ? 's' : '');
   } else {
     alert.style.display = 'none';
   }
@@ -584,7 +579,7 @@ function applyFilters() {
   const sortVal = document.getElementById('sort-select').value || currentSort;
 
   let data = workPlans.filter(wp => {
-    const matchFilter = currentFilter === 'all' || wp.status === currentFilter;
+    const matchFilter = currentFilter === 'all' || wp.type === currentFilter;
     const matchSearch = wp.name.toLowerCase().includes(currentSearch) || wp.cpaId.toLowerCase().includes(currentSearch);
     return matchFilter && matchSearch;
   });
@@ -617,11 +612,10 @@ function renderTable(data) {
             </div>
           </div>
         </td>
+        <td><span class="type-pill"><span class="type-dot" style="background:${wp.typeColor}"></span>${wp.typeLabel}</span></td>
         <td><span class="learner-id" style="font-size:12px;color:var(--gray-600);font-family:monospace;letter-spacing:0.03em">${wp.cpaId}</span></td>
         <td><span class="status-badge ${statusBadgeClass[wp.status]}"><span class="dot"></span>${wp.statusLabel}</span></td>
         <td class="date-cell">${formatDate(wp.submitted)}</td>
-        <td class="date-cell">${formatDate(wp.start)}</td>
-        <td class="date-cell">${formatDate(wp.end)}</td>
         <td>
           <a class="review-btn ${wp.status === 'pending-review' ? 'review-btn-urgent' : ''}" onclick="event.stopPropagation(); handleReview(${wp.id})">
             <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -635,7 +629,15 @@ function renderTable(data) {
 
 function handleReview(id) {
   const wp = workPlans.find(w => w.id === id);
-  alert(`Opening work plan for ${wp.name} (${wp.cpaId})`);
+  if (wp.status === 'pending-review' && wp.type === 'work-plan') {
+    window.location.href = '../../3_WP/WPMentorReview/WPMentorReview_PendingMentorReview.html';
+    return;
+  }
+  if (wp.status === 'pending-review' && wp.type === 'reflection-paper') {
+    window.location.href = '../../4_RP/RPMentorReview/RPMentorReview_PendingMentorReview.html';
+    return;
+  }
+  alert(`Opening ${wp.typeLabel.toLowerCase()} for ${wp.name} (${wp.cpaId})`);
 }
 
 applyFilters();

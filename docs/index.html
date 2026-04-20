@@ -41,7 +41,7 @@
   .step-label{font-size:14px;font-weight:600;line-height:1.3}.journey-step.active .step-label{color:var(--white)}.journey-step.locked .step-label{color:var(--gray-600)}.journey-step:not(.active):not(.locked) .step-label{color:var(--navy)}
   .step-copy{font-size:12px;line-height:1.45}.journey-step.active .step-copy{color:rgba(255,255,255,.72)}.journey-step.locked .step-copy{color:var(--gray-400)}.journey-step:not(.active):not(.locked) .step-copy{color:var(--gray-600)}
   .step-action{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;text-decoration:none;width:fit-content}
-  .btn-primary{background:var(--white);color:var(--navy)}.btn-disabled{background:var(--gray-200);color:var(--gray-400)}
+  .btn-primary{background:var(--white);color:var(--navy)}.btn-disabled{background:var(--gray-200);color:var(--gray-400);border:1px solid transparent}
   .progress-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.75rem}
   .prog-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:1.2rem;box-shadow:var(--shadow-sm)}
   .prog-card-title{font-size:12px;font-weight:500;color:var(--gray-600);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
@@ -68,9 +68,9 @@
   <div class="section-label">Your journey</div>
   <div class="journey">
     <div class="journey-step active"><div class="step-num">Step 01</div><div class="step-label">Foundational Experience</div><div class="step-copy">Start your FE claim flow and decide whether you want to claim prior foundational experience.</div><a class="step-action btn-primary" href="2_FE/ClaimFELearner/ClaimFE_S1_YesOrNo.html">Start FE claim</a></div>
-    <div class="journey-step locked"><div class="step-num">Step 02</div><div class="step-label">Create Work Plan</div><div class="step-copy">Unlocked after your FE decision is complete.</div><span class="step-action btn-disabled">Locked</span></div>
-    <div class="journey-step locked"><div class="step-num">Step 03</div><div class="step-label">Reflection Paper</div><div class="step-copy">Available after work plan completion.</div><span class="step-action btn-disabled">Locked</span></div>
-    <div class="journey-step locked"><div class="step-num">Step 04</div><div class="step-label">Register for Final Module</div><div class="step-copy">All prior steps must be complete first.</div><span class="step-action btn-disabled">Locked</span></div>
+    <div class="journey-step locked"><div class="step-num">Step 02</div><div class="step-label">Create Work Plan</div><div class="step-copy">Unlocked after your FE decision is complete.</div><a class="step-action btn-disabled" href="3_WP/SubmitWP/SubmitWP1.html">Locked</a></div>
+    <div class="journey-step locked"><div class="step-num">Step 03</div><div class="step-label">Reflection Paper</div><div class="step-copy">Available after work plan completion.</div><a class="step-action btn-disabled" href="4_RP/CreateRP.html">Locked</a></div>
+    <div class="journey-step locked"><div class="step-num">Step 04</div><div class="step-label">Register for Final Module</div><div class="step-copy">All prior steps must be complete first.</div><a class="step-action btn-disabled" href="5_FinalModule/RegisterFinalModule.html">Locked</a></div>
   </div>
   <div class="section-label">Progress overview</div>
   <div class="progress-grid">
